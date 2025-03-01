@@ -21,7 +21,8 @@
     "paths": {
       "#auth/*": ["src/app/feature/auth/*"],
       "#core/*": ["src/app/core/*"],
-      "#environment/*": ["src/app/environment/*"]
+      "#environment/*": ["src/app/environment/*"],
+      "#ui/*": ["src/app/ui/*"]
     }
   },
   "angularCompilerOptions": {

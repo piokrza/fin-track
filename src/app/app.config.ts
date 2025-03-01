@@ -11,10 +11,10 @@ import { authInterceptor } from '#auth/interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
     provideAnimationsAsync(),
     providePrimeNG({ theme: { preset: Aura } }),
-    provideRouter(routes),
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideHttpClient(withInterceptors([authInterceptor])),
   ],
 };
