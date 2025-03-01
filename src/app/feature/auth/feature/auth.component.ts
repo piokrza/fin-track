@@ -1,47 +1,31 @@
-import { Component, DestroyRef, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ReactiveFormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from 'primeng/password';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
-import { AuthRequest } from '#auth/model';
-import { AuthService } from '#auth/service';
+import { LoginComponent } from '#auth/component/login';
+import { SigninComponent } from '#auth/component/signin';
 
-const imports = [InputTextModule, PasswordModule, ReactiveFormsModule, ButtonModule];
+const imports = [SigninComponent, SelectButtonModule, FormsModule, LoginComponent];
 
 @Component({
   selector: 'ft-auth',
   template: `
-    <form [formGroup]="form">
-      <input pInputText placeholder="Email" type="text" [formControl]="form.controls.email" />
-      <input pInputText placeholder="Username" type="text" [formControl]="form.controls.username" />
-      <p-password placeholder="Password" [feedback]="false" [formControl]="form.controls.password" />
-    </form>
+    <p-selectbutton optionValue="value" aria-labelledby="basic" [(ngModel)]="value" [options]="stateOptions" />
 
-    <p-button label="Signin" (onClick)="signup()" />
+    @if (value === 'login') {
+      <ft-login />
+    } @else {
+      <ft-signin />
+    }
   `,
   imports,
 })
 export class AuthComponent {
-  readonly #destroyRef = inject(DestroyRef);
-  readonly #authService = inject(AuthService);
+  stateOptions: { value: 'login' | 'signup'; label: string }[] = [
+    { value: 'login', label: 'login' },
+    { value: 'signup', label: 'signup' },
+  ];
 
-  readonly form = this.#authService.authForm;
-
-  signup(): void {
-    if (this.form.invalid) {
-      this.form.markAsDirty();
-      return;
-    }
-
-    const authReq: AuthRequest = {
-      email: this.form.controls.email.value,
-      username: this.form.controls.username.value,
-      password: this.form.controls.password.value,
-    };
-
-    this.#authService.signup$(authReq).pipe(takeUntilDestroyed(this.#destroyRef)).subscribe();
-  }
+  value: 'login' | 'signup' = 'login';
 }

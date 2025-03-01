@@ -22,7 +22,8 @@
       "#auth/*": ["src/app/feature/auth/*"],
       "#core/*": ["src/app/core/*"],
       "#environment/*": ["src/app/environment/*"],
-      "#ui/*": ["src/app/ui/*"]
+      "#ui/*": ["src/app/ui/*"],
+      "#dashboard/*": ["src/app/feature/dashboard/*"]
     }
   },
   "angularCompilerOptions": {
