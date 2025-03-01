@@ -1,0 +1,21 @@
+Dodaj walidatory
+{
+    "status": 400,
+    "errors": [
+        {
+            "message": "This password is too short. It must contain at least 8 characters.",
+            "code": "password_too_short",
+            "param": "password"
+        },
+        {
+            "message": "This password is too common.",
+            "code": "password_too_common",
+            "param": "password"
+        },
+        {
+            "message": "This password is entirely numeric.",
+            "code": "password_entirely_numeric",
+            "param": "password"
+        }
+    ]
+}

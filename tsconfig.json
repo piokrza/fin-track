@@ -19,7 +19,9 @@
     "target": "ES2022",
     "module": "ES2022",
     "paths": {
-      "#auth/*": ["src/app/feature/auth/*"]
+      "#auth/*": ["src/app/feature/auth/*"],
+      "#core/*": ["src/app/core/*"],
+      "#environment/*": ["src/app/environment/*"]
     }
   },
   "angularCompilerOptions": {
