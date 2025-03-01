@@ -1,4 +1,4 @@
 export enum Path {
   AUTH = 'auth',
-  DASHBOARD = '',
+  DASHBOARD = 'dashboard',
 }

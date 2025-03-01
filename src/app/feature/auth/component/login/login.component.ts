@@ -4,11 +4,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
 
 import { LoginRequest } from '#auth/model';
 import { AuthService } from '#auth/service';
 
-const imports = [InputTextModule, ReactiveFormsModule, ButtonModule];
+const imports = [InputTextModule, ReactiveFormsModule, ButtonModule, PasswordModule];
 
 @Component({
   selector: 'ft-login',
@@ -17,7 +18,7 @@ const imports = [InputTextModule, ReactiveFormsModule, ButtonModule];
 
     <form [formGroup]="form">
       <input pInputText placeholder="Email" type="text" [formControl]="form.controls.email" />
-      <input pInputText placeholder="Username" type="text" [formControl]="form.controls.username" />
+      <p-password placeholder="Password" [feedback]="false" [formControl]="form.controls.password" />
     </form>
 
     <p-button label="Signin" (onClick)="signup()" />
@@ -28,7 +29,7 @@ export class LoginComponent {
   readonly #destroyRef = inject(DestroyRef);
   readonly #authService = inject(AuthService);
 
-  readonly form = this.#authService.signinForm;
+  readonly form = this.#authService.loginForm;
 
   signup(): void {
     if (this.form.invalid) {

@@ -6,7 +6,7 @@ import { catchError, EMPTY, Observable, tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
 
 import { AuthHttpService } from '#auth/api';
-import { SigninForm, SignupRequest, AuthResponse, LoginRequest } from '#auth/model';
+import { SigninForm, SignupRequest, AuthResponse, LoginRequest, LoginForm } from '#auth/model';
 import { UserStore } from '#auth/store/user';
 import { Path } from '#core/enum';
 
@@ -16,6 +16,11 @@ export class AuthService {
   readonly #authStore = inject(UserStore);
   readonly #messageService = inject(MessageService);
   readonly #authHttpService = inject(AuthHttpService);
+
+  readonly loginForm: LoginForm = new FormGroup({
+    email: new FormControl('', { validators: [Validators.required], nonNullable: true }),
+    password: new FormControl('', { validators: [Validators.required], nonNullable: true }),
+  });
 
   readonly signinForm: SigninForm = new FormGroup({
     username: new FormControl('', { validators: [Validators.required], nonNullable: true }),

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 
+import { authGuard } from '#auth/guard';
 import { Path } from '#core/enum';
 
 export const routes: Routes = [
@@ -9,6 +10,7 @@ export const routes: Routes = [
   },
   {
     path: Path.DASHBOARD,
-    loadComponent: async () => (await import('#dashboard/component/dashboard')).DashboardComponent,
+    canMatch: [authGuard],
+    loadComponent: async () => (await import('#dashboard/feature')).DashboardComponent,
   },
 ];

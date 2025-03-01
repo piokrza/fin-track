@@ -1,9 +1,9 @@
-import { AuthMethods, User } from '#auth/model';
+import { AuthMethods, UserResponse } from '#auth/model';
 
 export interface AuthResponse {
   status: number;
   data: {
-    user: User;
+    user: UserResponse;
     methods: AuthMethods[];
   };
   meta: {
