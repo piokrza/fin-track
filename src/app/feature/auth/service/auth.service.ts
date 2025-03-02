@@ -26,7 +26,7 @@ export class AuthService {
         this.#router.navigate([Path.DASHBOARD]);
       }),
       catchError(() => {
-        this.#messageService.add({ severity: 'success', summary: 'Error', detail: 'Something is no yes :/' });
+        this.#messageService.add({ severity: 'error', summary: 'Error', detail: 'Something is no yes :/' });
         return EMPTY;
       })
     );
@@ -40,8 +40,16 @@ export class AuthService {
         this.#router.navigate([Path.DASHBOARD]);
       }),
       catchError(() => {
-        this.#messageService.add({ severity: 'success', summary: 'Error', detail: 'Something is no yes :/' });
+        this.#messageService.add({ severity: 'error', summary: 'Error', detail: 'Something is no yes :/' });
         return EMPTY;
+      })
+    );
+  }
+
+  logout$(): Observable<object> {
+    return this.#authHttpService.logout$().pipe(
+      tap(() => {
+        this.#router.navigate([Path.AUTH]);
       })
     );
   }

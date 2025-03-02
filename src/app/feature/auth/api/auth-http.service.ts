@@ -17,4 +17,8 @@ export class AuthHttpService {
   login$(payload: LoginRequest): Observable<AuthResponse> {
     return this.#apiService.post$(this.#baseUrl + 'login', payload);
   }
+
+  logout$(): Observable<object> {
+    return this.#apiService.delete$('session');
+  }
 }
