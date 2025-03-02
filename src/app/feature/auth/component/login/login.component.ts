@@ -1,12 +1,12 @@
 import { Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 
-import { LoginRequest } from '#auth/model';
+import { LoginForm, LoginRequest } from '#auth/model';
 import { AuthService } from '#auth/service';
 
 const imports = [InputTextModule, ReactiveFormsModule, ButtonModule, PasswordModule];
@@ -29,7 +29,10 @@ export class LoginComponent {
   readonly #destroyRef = inject(DestroyRef);
   readonly #authService = inject(AuthService);
 
-  readonly form = this.#authService.loginForm;
+  readonly form: LoginForm = new FormGroup({
+    email: new FormControl('', { validators: [Validators.required], nonNullable: true }),
+    password: new FormControl('', { validators: [Validators.required], nonNullable: true }),
+  });
 
   signup(): void {
     if (this.form.invalid) {

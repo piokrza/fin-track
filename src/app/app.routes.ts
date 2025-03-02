@@ -1,16 +1,21 @@
 import { Routes } from '@angular/router';
 
-import { authGuard } from '#auth/guard';
+import { isAuthenticatedGuard } from '#auth/guard';
 import { Path } from '#core/enum';
 
 export const routes: Routes = [
   {
-    path: Path.AUTH,
-    loadComponent: async () => (await import('#auth/feature')).AuthComponent,
+    path: '',
+    pathMatch: 'full',
+    redirectTo: Path.DASHBOARD,
   },
   {
     path: Path.DASHBOARD,
-    canMatch: [authGuard],
+    canMatch: [isAuthenticatedGuard],
     loadComponent: async () => (await import('#dashboard/feature')).DashboardComponent,
+  },
+  {
+    path: Path.AUTH,
+    loadComponent: async () => (await import('#auth/feature')).AuthComponent,
   },
 ];

@@ -1,4 +1,4 @@
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { HttpInterceptorFn, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
@@ -8,7 +8,9 @@ import { routes } from 'src/app';
 import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 
-import { authInterceptor } from '#auth/interceptor';
+import { tokenInterceptor } from '#auth/interceptor';
+
+const interceptors: HttpInterceptorFn[] = [tokenInterceptor];
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,7 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     providePrimeNG({ theme: { preset: Aura } }),
+    provideHttpClient(withInterceptors(interceptors)),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideHttpClient(withInterceptors([authInterceptor])),
   ],
 };

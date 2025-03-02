@@ -10,7 +10,7 @@ const imports = [LayoutComponent];
   template: `
     <ft-layout>
       <div class="flex justify-center">
-        <h1>Siemaneczko {{ userStore.username() }}!!</h1>
+        <h1>Siemaneczko {{ userStore.user()?.username }}!!</h1>
       </div>
     </ft-layout>
   `,
