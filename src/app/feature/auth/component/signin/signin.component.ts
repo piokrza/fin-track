@@ -14,15 +14,15 @@ const imports = [InputTextModule, PasswordModule, ReactiveFormsModule, ButtonMod
 @Component({
   selector: 'ft-signin',
   template: `
-    <h1>Signin</h1>
+    <h1 class="text-center">Signin</h1>
 
-    <form [formGroup]="form">
+    <form [formGroup]="form" (ngSubmit)="signup()">
       <input pInputText placeholder="Email" type="text" [formControl]="form.controls.email" />
       <input pInputText placeholder="Username" type="text" [formControl]="form.controls.username" />
       <p-password placeholder="Password" [feedback]="false" [formControl]="form.controls.password" />
     </form>
 
-    <p-button label="Signin" (onClick)="signup()" />
+    <p-button label="Signin" type="submit" (onClick)="signup()" />
   `,
   imports,
 })
@@ -42,12 +42,12 @@ export class SigninComponent {
       return;
     }
 
-    const authReq: SignupRequest = {
+    const signinReq: SignupRequest = {
       email: this.form.controls.email.value,
       username: this.form.controls.username.value,
       password: this.form.controls.password.value,
     };
 
-    this.#authService.signup$(authReq).pipe(takeUntilDestroyed(this.#destroyRef)).subscribe();
+    this.#authService.signup$(signinReq).pipe(takeUntilDestroyed(this.#destroyRef)).subscribe();
   }
 }

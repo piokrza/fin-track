@@ -14,14 +14,14 @@ const imports = [InputTextModule, ReactiveFormsModule, ButtonModule, PasswordMod
 @Component({
   selector: 'ft-login',
   template: `
-    <h1>Login!</h1>
+    <h1 class="text-center my-8 text-3xl">Logowanie</h1>
 
-    <form [formGroup]="form">
+    <form class="grid  w-full" [formGroup]="form" (ngSubmit)="login()">
       <input pInputText placeholder="Email" type="text" [formControl]="form.controls.email" />
       <p-password placeholder="Password" [feedback]="false" [formControl]="form.controls.password" />
     </form>
 
-    <p-button label="Signin" (onClick)="signup()" />
+    <p-button label="Signin" type="submit" (onClick)="login()" />
   `,
   imports,
 })
@@ -34,17 +34,17 @@ export class LoginComponent {
     password: new FormControl('', { validators: [Validators.required], nonNullable: true }),
   });
 
-  signup(): void {
+  login(): void {
     if (this.form.invalid) {
       this.form.markAsDirty();
       return;
     }
 
-    const authReq: LoginRequest = {
+    const loginReq: LoginRequest = {
       email: this.form.controls.email.value,
       password: this.form.controls.password.value,
     };
 
-    this.#authService.login$(authReq).pipe(takeUntilDestroyed(this.#destroyRef)).subscribe();
+    this.#authService.login$(loginReq).pipe(takeUntilDestroyed(this.#destroyRef)).subscribe();
   }
 }
