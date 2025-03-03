@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { SignupRequest, AuthResponse, LoginRequest } from '#auth/model';
+import { AuthRequest, AuthResponse } from '#auth/model';
 import { ApiService } from '#core/service';
 
 @Injectable({ providedIn: 'root' })
@@ -10,11 +10,11 @@ export class AuthHttpService {
 
   readonly #baseUrl = 'auth/app/v1/auth/';
 
-  signup$(payload: SignupRequest): Observable<AuthResponse> {
+  signup$(payload: AuthRequest): Observable<AuthResponse> {
     return this.#apiService.post$(this.#baseUrl + 'signup', payload);
   }
 
-  login$(payload: LoginRequest): Observable<AuthResponse> {
+  login$(payload: AuthRequest): Observable<AuthResponse> {
     return this.#apiService.post$(this.#baseUrl + 'login', payload);
   }
 

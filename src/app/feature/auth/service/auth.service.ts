@@ -5,7 +5,7 @@ import { catchError, EMPTY, Observable, tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
 
 import { AuthHttpService } from '#auth/api';
-import { SignupRequest, AuthResponse, LoginRequest } from '#auth/model';
+import { AuthRequest, AuthResponse } from '#auth/model';
 import { TokenService } from '#auth/service';
 import { UserStore } from '#auth/store/user';
 import { Path } from '#core/enum';
@@ -18,7 +18,7 @@ export class AuthService {
   readonly #messageService = inject(MessageService);
   readonly #authHttpService = inject(AuthHttpService);
 
-  signup$(payload: SignupRequest): Observable<AuthResponse> {
+  signup$(payload: AuthRequest): Observable<AuthResponse> {
     return this.#authHttpService.signup$(payload).pipe(
       tap((res) => {
         this.#authStore.setUser(res.data.user);
@@ -32,7 +32,7 @@ export class AuthService {
     );
   }
 
-  login$(payload: LoginRequest): Observable<AuthResponse> {
+  login$(payload: AuthRequest): Observable<AuthResponse> {
     return this.#authHttpService.login$(payload).pipe(
       tap((res) => {
         this.#authStore.setUser(res.data.user);

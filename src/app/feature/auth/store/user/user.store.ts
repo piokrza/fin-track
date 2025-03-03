@@ -4,6 +4,7 @@ import { User, UserResponse } from '#auth/model';
 
 interface UserState {
   user: User | null;
+  isLoading: boolean;
 }
 
 export const UserStore = signalStore(
@@ -12,6 +13,9 @@ export const UserStore = signalStore(
   withMethods((store) => ({
     setUser({ id, email, username }: UserResponse): void {
       patchState(store, () => ({ user: { id, email, username } }));
+    },
+    setIsLoading(isLoading: boolean): void {
+      patchState(store, () => ({ isLoading }));
     },
   }))
 );

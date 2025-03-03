@@ -16,6 +16,6 @@ export const routes: Routes = [
   },
   {
     path: Path.AUTH,
-    loadComponent: async () => (await import('#auth/feature')).AuthComponent,
+    loadChildren: async () => (await import('#auth/feature')).AuthModule,
   },
 ];
