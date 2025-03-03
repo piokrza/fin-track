@@ -14,33 +14,34 @@ const imports = [InputTextModule, PasswordModule, ReactiveFormsModule, ButtonMod
 @Component({
   selector: 'ft-auth-form',
   template: `
-    <div class="w-full max-w-3xl">
-      <h1 class="text-center mb-6 text-3xl">{{ mode() === 'login' ? 'Logowanie' : 'Rejestracja' }}</h1>
-      <form class="grid gap-3 mb-5" [formGroup]="form" (ngSubmit)="formSubmit()">
-        <input pInputText placeholder="Email" type="text" [formControl]="form.controls.email" />
-        @if (this.mode() === 'signin') {
-          <input pInputText placeholder="Username" type="text" [formControl]="form.controls.username" />
-        }
-        <p-password placeholder="Password" [feedback]="false" [formControl]="form.controls.password" />
-      </form>
-      <p-button styleClass="w-full" label="Signin" type="submit" (onClick)="formSubmit()" />
+    <h1 class="text-center mb-6 text-3xl">{{ mode() === 'login' ? 'Login' : 'Signin' }}</h1>
+    <form class="grid gap-3 mb-5" [formGroup]="form" (ngSubmit)="formSubmit()">
+      @let ctrls = form.controls;
 
-      <p>
+      <input pInputText placeholder="Email" type="text" [formControl]="ctrls.email" />
+      @if (this.mode() === 'signin') {
+        <input pInputText placeholder="Username" type="text" [formControl]="ctrls.username" />
+      }
+      <p-password styleClass="w-full" placeholder="Password" [feedback]="false" [formControl]="ctrls.password" />
+    </form>
+    <p-button styleClass="w-full" label="Signin" type="submit" (onClick)="formSubmit()" />
+
+    <p class="mt-7 text-center">
+      @if (mode() === 'login') {
+        Don't have account?
+      } @else {
+        Have an account?
+      }
+      <a class="text-sky-500" [routerLink]="redirectPath()">
         @if (mode() === 'login') {
-          Nie masz konta?
+          Signin
         } @else {
-          Masz konto?
+          Login
         }
-        <a [routerLink]="redirectPath()">
-          @if (mode() === 'login') {
-            Zarejestruj się
-          } @else {
-            Zaloguj się
-          }
-        </a>
-      </p>
-    </div>
+      </a>
+    </p>
   `,
+  styleUrl: './auth-form.component.scss',
   imports,
 })
 export class AuthFormComponent {
@@ -75,7 +76,7 @@ export class AuthFormComponent {
     this.afSubmit.emit({
       email: email.value,
       password: password.value,
-      username: username?.value,
+      username: username.value,
     });
   }
 }

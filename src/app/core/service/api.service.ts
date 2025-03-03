@@ -8,12 +8,12 @@ import { environment } from '#environment/index';
 export class ApiService {
   readonly #http = inject(HttpClient);
 
-  get$<Res>(url: string): Observable<Res> {
-    return this.#http.get<Res>(environment.baseUrl + url);
+  get$<Res>(url: string, opt = {}): Observable<Res> {
+    return this.#http.get<Res>(environment.baseUrl + url, opt);
   }
 
-  post$<Req, Res>(url: string, body: Req): Observable<Res> {
-    return this.#http.post<Res>(environment.baseUrl + url, body);
+  post$<Req, Res>(url: string, body: Req, opt = {}): Observable<Res> {
+    return this.#http.post<Res>(environment.baseUrl + url, body, opt);
   }
 
   delete$(url: string): Observable<object> {

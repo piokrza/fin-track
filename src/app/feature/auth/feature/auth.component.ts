@@ -11,9 +11,11 @@ const imports = [SelectButtonModule, FormsModule, CardModule, RouterOutlet];
   selector: 'ft-auth',
   template: `
     <section class="h-screen flex justify-center items-center">
-      <p-card>
-        <router-outlet />
-      </p-card>
+      <div class="w-full max-w-lg">
+        <p-card styleClass="w-full">
+          <router-outlet />
+        </p-card>
+      </div>
     </section>
   `,
   imports,
