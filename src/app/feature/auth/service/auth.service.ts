@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, EMPTY, Observable, tap } from 'rxjs';
+import { catchError, EMPTY, finalize, Observable, tap } from 'rxjs';
 
 import { MessageService } from 'primeng/api';
 
@@ -18,7 +18,26 @@ export class AuthService {
   readonly #messageService = inject(MessageService);
   readonly #authHttpService = inject(AuthHttpService);
 
+  checkAuth(): void {
+    const token = this.#tokenService.token;
+
+    if (!token) {
+      this.#router.navigate([Path.AUTH]);
+      return;
+    }
+
+    this.#authStore.setUser({
+      username: 'test username',
+      display: 'test displayname',
+      email: 'test@test.pl',
+      has_usable_password: false,
+      id: 234,
+    });
+  }
+
   signup$(payload: AuthRequest): Observable<AuthResponse> {
+    this.#authStore.setIsLoading(true);
+
     return this.#authHttpService.signup$(payload).pipe(
       tap((res) => {
         this.#authStore.setUser(res.data.user);
@@ -28,11 +47,14 @@ export class AuthService {
       catchError(() => {
         this.#messageService.add({ severity: 'error', summary: 'Error', detail: 'Something is no yes :/' });
         return EMPTY;
-      })
+      }),
+      finalize(() => this.#authStore.setIsLoading(false))
     );
   }
 
   login$(payload: AuthRequest): Observable<AuthResponse> {
+    this.#authStore.setIsLoading(true);
+
     return this.#authHttpService.login$(payload).pipe(
       tap((res) => {
         this.#authStore.setUser(res.data.user);
@@ -42,13 +64,15 @@ export class AuthService {
       catchError(() => {
         this.#messageService.add({ severity: 'error', summary: 'Error', detail: 'Something is no yes :/' });
         return EMPTY;
-      })
+      }),
+      finalize(() => this.#authStore.setIsLoading(false))
     );
   }
 
   logout$(): Observable<object> {
     return this.#authHttpService.logout$().pipe(
       tap(() => {
+        this.#authStore.setUser(null);
         this.#router.navigate([Path.AUTH]);
       })
     );

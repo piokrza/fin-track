@@ -21,13 +21,7 @@ export class SigninComponent {
   readonly #destroyRef = inject(DestroyRef);
   readonly #authService = inject(AuthService);
 
-  signup(authReq: AuthRequest): void {
-    const signinReq: AuthRequest = {
-      email: authReq.email,
-      password: authReq.password,
-      username: authReq.username,
-    };
-
+  signup(signinReq: AuthRequest): void {
     this.#authService.signup$(signinReq).pipe(takeUntilDestroyed(this.#destroyRef)).subscribe();
   }
 }

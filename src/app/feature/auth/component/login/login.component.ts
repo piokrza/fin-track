@@ -21,12 +21,7 @@ export class LoginComponent {
   readonly #destroyRef = inject(DestroyRef);
   readonly #authService = inject(AuthService);
 
-  login(authRequest: AuthRequest): void {
-    const loginReq: AuthRequest = {
-      email: authRequest.email,
-      password: authRequest.password,
-    };
-
+  login(loginReq: AuthRequest): void {
     this.#authService.login$(loginReq).pipe(takeUntilDestroyed(this.#destroyRef)).subscribe();
   }
 }

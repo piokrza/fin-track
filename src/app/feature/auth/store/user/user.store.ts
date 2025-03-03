@@ -9,10 +9,15 @@ interface UserState {
 
 export const UserStore = signalStore(
   { providedIn: 'root' },
-  withState({ user: null } as UserState),
+  withState({ user: null, isLoading: false } as UserState),
   withMethods((store) => ({
-    setUser({ id, email, username }: UserResponse): void {
-      patchState(store, () => ({ user: { id, email, username } }));
+    setUser(user: UserResponse | null): void {
+      patchState(store, () => {
+        if (!user) return { user: null };
+
+        const { email, id, username } = user;
+        return { user: { id, email, username } };
+      });
     },
     setIsLoading(isLoading: boolean): void {
       patchState(store, () => ({ isLoading }));

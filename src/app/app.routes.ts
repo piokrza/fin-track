@@ -11,7 +11,7 @@ export const routes: Routes = [
   },
   {
     path: Path.DASHBOARD,
-    canMatch: [isAuthenticatedGuard],
+    canMatch: [isAuthenticatedGuard()],
     loadComponent: async () => (await import('#dashboard/feature')).DashboardComponent,
   },
   {
