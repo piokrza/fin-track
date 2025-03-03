@@ -14,7 +14,7 @@ const imports = [InputTextModule, PasswordModule, ReactiveFormsModule, ButtonMod
 
 @Component({
   selector: 'ft-signin',
-  template: `<ft-auth-form mode="signin" (afSubmit)="signup($event)" />`,
+  template: `<ft-auth-form view="signin" (afSubmit)="signup($event)" />`,
   imports,
 })
 export class SigninComponent {
