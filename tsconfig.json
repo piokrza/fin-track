@@ -23,7 +23,7 @@
       "#core/*": ["src/app/core/*"],
       "#environment/*": ["src/app/environment/*"],
       "#ui/*": ["src/app/ui/*"],
-      "#dashboard/*": ["src/app/feature/dashboard/*"]
+      "#fin-track/*": ["src/app/feature/fin-track/*"]
     }
   },
   "angularCompilerOptions": {

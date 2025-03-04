@@ -7,12 +7,12 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: Path.DASHBOARD,
+    redirectTo: Path.FIN_TRACK,
   },
   {
-    path: Path.DASHBOARD,
+    path: Path.FIN_TRACK,
     canMatch: [isAuthenticatedGuard()],
-    loadComponent: async () => (await import('#dashboard/feature')).DashboardComponent,
+    loadChildren: async () => (await import('#fin-track/view')).ViewModule,
   },
   {
     path: Path.AUTH,

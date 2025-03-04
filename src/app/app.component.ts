@@ -22,6 +22,6 @@ export class AppComponent implements OnInit {
   title = 'fin-track';
 
   ngOnInit(): void {
-    this.#authService.checkAuth();
+    // this.#authService.checkAuth();
   }
 }

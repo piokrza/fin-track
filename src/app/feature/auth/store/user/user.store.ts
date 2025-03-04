@@ -11,7 +11,7 @@ export const UserStore = signalStore(
   { providedIn: 'root' },
   withState({ user: null, isLoading: false } as UserState),
   withMethods((store) => ({
-    setUser(user: UserResponse | null): void {
+    setUser(user: UserResponse | null) {
       patchState(store, () => {
         if (!user) return { user: null };
 
@@ -19,7 +19,7 @@ export const UserStore = signalStore(
         return { user: { id, email, username } };
       });
     },
-    setIsLoading(isLoading: boolean): void {
+    setIsLoading(isLoading: boolean) {
       patchState(store, () => ({ isLoading }));
     },
   }))

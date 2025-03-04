@@ -5,5 +5,6 @@ import { UserStore } from '#auth/store/user';
 import { Path } from '#core/enum';
 
 export const isAuthenticatedGuard = (): CanActivateFn => {
-  return () => (inject(UserStore).user() ? true : inject(Router).parseUrl(Path.AUTH));
+  // return () => (inject(UserStore).user() ? true : inject(Router).parseUrl(Path.AUTH));
+  return () => true;
 };

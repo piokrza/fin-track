@@ -1,6 +1,6 @@
 import { Directive, effect, inject, input, TemplateRef, ViewContainerRef } from '@angular/core';
 
-import { LoaderComponent } from '#ui/loader';
+import { LoaderComponent } from '#ui/component/loader';
 
 @Directive({ selector: '[isLoading]' })
 export class LoaderDirective {
