@@ -1,2 +1,2 @@
-export * from './view.component';
-export * from './view.module';
+export * from './fin-track-view.component';
+export * from './fin-track-view.module';

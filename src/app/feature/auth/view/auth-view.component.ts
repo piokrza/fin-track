@@ -20,4 +20,4 @@ const imports = [SelectButtonModule, FormsModule, CardModule, RouterOutlet];
   `,
   imports,
 })
-export class AuthComponent {}
+export class AuthViewComponent {}

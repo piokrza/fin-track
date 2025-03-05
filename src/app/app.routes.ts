@@ -12,10 +12,14 @@ export const routes: Routes = [
   {
     path: Path.FIN_TRACK,
     canMatch: [isAuthenticatedGuard()],
-    loadChildren: async () => (await import('#fin-track/view')).ViewModule,
+    loadChildren: async () => (await import('#fin-track/view')).FinTrackViewModule,
   },
   {
     path: Path.AUTH,
-    loadChildren: async () => (await import('#auth/feature')).AuthModule,
+    loadChildren: async () => (await import('#auth/view')).AuthViewModule,
+  },
+  {
+    path: '**',
+    redirectTo: Path.FIN_TRACK,
   },
 ];

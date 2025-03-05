@@ -15,10 +15,12 @@ const routes: Routes = [
       },
       {
         path: Path.DASHBOARD,
+        title: 'Dashbord',
         loadComponent: async () => (await import('#fin-track/feature/dashboard')).DashboardComponent,
       },
       {
         path: Path.SETTINGS,
+        title: 'Settings',
         loadComponent: async () => (await import('#fin-track/feature/settings')).SettingsComponent,
       },
     ],
@@ -26,4 +28,4 @@ const routes: Routes = [
 ];
 
 @NgModule({ imports: [RouterModule.forChild(routes)] })
-export class ViewModule {}
+export class FinTrackViewModule {}

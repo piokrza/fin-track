@@ -18,14 +18,16 @@ const imports = [AvatarModule, TooltipModule, RouterLink];
 
       <ul class="mt-8 grid gap-1">
         @for (item of menuItems; track $index) {
-          <li class="menu-item" [pTooltip]="item.tooltip" [routerLink]="[item.routerLink]">
+          <li
+            class="flex justify-center items-center p-4 cursor-pointer rounded-sm hover:bg-(--p-surface-700)"
+            [pTooltip]="item.tooltip"
+            [routerLink]="[item.routerLink]">
             <i [class]="item.icon"></i>
           </li>
         }
       </ul>
     </aside>
   `,
-  styleUrl: './sidebar.component.scss',
   imports,
 })
 export class SidebarComponent {
