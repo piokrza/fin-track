@@ -21,7 +21,6 @@
     "paths": {
       "#auth/*": ["src/app/feature/auth/*"],
       "#core/*": ["src/app/core/*"],
-      "#environment/*": ["src/environment/*"],
       "#ui/*": ["src/app/ui/*"],
       "#fin-track/*": ["src/app/feature/fin-track/*"]
     }
