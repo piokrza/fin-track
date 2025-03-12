@@ -14,20 +14,12 @@
   styleClass="w-full"
   [disabled]="userStore.isLoading()"
   [label]="view() === 'login' ? 'Login' : 'Signin'"
-  [icon]="userStore.isLoading() ? PrimeIcons.SPINNER + ' pi pi-spin' : ''"
+  [icon]="userStore.isLoading() ? 'pi pi-spinner' : ''"
   (onClick)="formSubmit()" />
 
 <p class="mt-7 text-center">
-  @if (view() === 'login') {
-    Don't have account?
-  } @else {
-    Have an account?
-  }
+  {{ view() === 'login' ? "Don't have account?" : 'Have an account?' }}
   <a class="text-sky-500" [routerLink]="redirectPath()">
-    @if (view() === 'login') {
-      Signin
-    } @else {
-      Login
-    }
+    {{ view() === 'login' ? 'Signin' : 'Login' }}
   </a>
 </p>
