@@ -27,7 +27,7 @@ const imports = [PanelModule, RouterOutlet, MegaMenuModule, AvatarModule, Confir
 
             <ng-template #end>
               <div class="flex items-center gap-3">
-                <p-avatar size="normal" [label]="'P'" />
+                <p-avatar size="normal" shape="circle" [label]="'P'" />
                 <p-button size="small" severity="info" [icon]="PrimeIcons.SIGN_OUT" (onClick)="logout($event)" />
               </div>
             </ng-template>

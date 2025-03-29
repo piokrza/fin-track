@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { UserCredential } from '@angular/fire/auth';
+import { User, UserCredential } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { finalize, Observable, tap } from 'rxjs';
 
@@ -10,16 +10,6 @@ import { Path } from '#core/enum';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor() {
-    this.#authHttpService.user$
-      .pipe(
-        tap((user) => {
-          this.#userStore.setUser({ email: user?.email ?? '', username: user?.displayName ?? '' });
-        })
-      )
-      .subscribe();
-  }
-
   readonly #router = inject(Router);
   readonly #userStore = inject(UserStore);
   readonly #authHttpService = inject(AuthHttpService);
@@ -48,5 +38,16 @@ export class AuthService {
 
   logout(): Promise<void> {
     return this.#authHttpService.logout();
+  }
+
+  setUser$(): Observable<User | null> {
+    this.#userStore.setIsProcessing(true);
+
+    return this.#authHttpService.user$.pipe(
+      tap((user) => {
+        this.#userStore.setUser({ email: user?.email ?? '', username: user?.displayName ?? '' });
+        this.#userStore.setIsProcessing(false);
+      })
+    );
   }
 }

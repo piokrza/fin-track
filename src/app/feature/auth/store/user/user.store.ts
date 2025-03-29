@@ -9,7 +9,10 @@ interface UserState {
 
 export const UserStore = signalStore(
   { providedIn: 'root' },
-  withState({ user: null, isProcessing: false } as UserState),
+  withState({
+    user: null,
+    isProcessing: false,
+  } as UserState),
   withMethods((store) => ({
     setUser(user: UserInfo | null) {
       patchState(store, () => ({ user }));
