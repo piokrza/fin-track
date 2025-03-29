@@ -1,12 +1,14 @@
-import { Component, computed, effect, input, output } from '@angular/core';
+import { Component, computed, effect, inject, input, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
+import { PrimeIcons } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 
 import { AuthForm, AuthPayload } from '#auth/model';
+import { UserStore } from '#auth/store/user';
 import { Path } from '#core/enum';
 
 const imports = [InputTextModule, PasswordModule, ReactiveFormsModule, ButtonModule, RouterLink];
@@ -28,18 +30,20 @@ export class AuthFormComponent {
     });
   }
 
-  readonly isProcessing = input<boolean>();
   readonly view = input<'login' | 'signin'>('login');
   readonly formSubmit = output<Partial<AuthPayload>>();
+  readonly signInWithGoogle = output<void>();
 
   readonly form: AuthForm = new FormGroup({
     username: new FormControl('', { validators: [Validators.required], nonNullable: true }),
     email: new FormControl('', { validators: [Validators.required, Validators.email], nonNullable: true }),
     password: new FormControl('', { nonNullable: true }),
   });
+  readonly isProcessing = inject(UserStore).isProcessing;
   readonly redirectPath = computed(() => ['../', this.view() === 'login' ? Path.SIGNIN : Path.LOGIN]);
 
   readonly Path = Path;
+  readonly PrimeIcons = PrimeIcons;
 
   submit(): void {
     if (this.form.invalid) {

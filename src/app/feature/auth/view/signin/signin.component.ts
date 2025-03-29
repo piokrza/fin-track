@@ -9,17 +9,15 @@ import { PasswordModule } from 'primeng/password';
 import { AuthFormComponent } from '#auth/component/auth-form';
 import { AuthPayload } from '#auth/model';
 import { AuthService } from '#auth/service';
-import { UserStore } from '#auth/store/user';
 
 const imports = [InputTextModule, PasswordModule, ReactiveFormsModule, ButtonModule, AuthFormComponent];
 
 @Component({
   selector: 'ft-signin',
-  template: `<ft-auth-form view="signin" [isProcessing]="userStore.isProcessing()" (afSubmit)="registerWithEmailAndPassword$($event)" />`,
+  template: `<ft-auth-form view="signin" (formSubmit)="registerWithEmailAndPassword$($event)" />`,
   imports,
 })
 export class SigninComponent {
-  readonly userStore = inject(UserStore);
   readonly #destroyRef = inject(DestroyRef);
   readonly #authService = inject(AuthService);
 

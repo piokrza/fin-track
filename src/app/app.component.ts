@@ -1,19 +1,16 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { ProgressBarModule } from 'primeng/progressbar';
-
 import { AuthService } from '#auth/service';
 import { UserStore } from '#auth/store/user';
+import { ProgressBarComponent } from '#ui/component/progress-bar';
 
-const imports = [RouterOutlet, ProgressBarModule];
+const imports = [RouterOutlet, ProgressBarComponent];
 
 @Component({
   selector: 'ft-root',
   template: `
-    @if (userStore.isProcessing() || userStore.user() === null) {
-      <p-progressbar styleClass="absolute" mode="indeterminate" [style]="{ height: '.25rem' }" />
-    }
+    <ft-progress-bar />
     <router-outlet />
   `,
   styleUrl: './app.component.scss',

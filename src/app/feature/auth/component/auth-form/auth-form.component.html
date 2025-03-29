@@ -4,6 +4,7 @@
   @let ctrls = form.controls;
 
   <input pInputText placeholder="Email" type="text" [formControl]="ctrls.email" />
+
   @if (this.view() === 'signin') {
     <input pInputText placeholder="Username" type="text" [formControl]="ctrls.username" />
   }
@@ -23,3 +24,14 @@
     {{ view() === 'login' ? 'Signin' : 'Login' }}
   </a>
 </p>
+
+<p class="text-center my-2">or</p>
+
+<div class="flex justify-center">
+  <p-button
+    severity="info"
+    label="Sign in with Google"
+    [icon]="PrimeIcons.GOOGLE"
+    [disabled]="isProcessing()"
+    (onClick)="signInWithGoogle.emit()" />
+</div>
