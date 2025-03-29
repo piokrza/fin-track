@@ -10,7 +10,7 @@ const imports = [SelectButtonModule, FormsModule, CardModule, RouterOutlet];
 @Component({
   selector: 'ft-auth',
   template: `
-    <section class="h-screen flex justify-center items-center">
+    <section class="h-screen flex justify-center items-center p-4">
       <div class="w-full max-w-lg">
         <p-card styleClass="w-full">
           <router-outlet />

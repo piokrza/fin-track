@@ -19,6 +19,11 @@ const routes: Routes = [
         loadComponent: async () => (await import('#fin-track/view/dashboard')).DashboardComponent,
       },
       {
+        path: Path.CATEGORIES,
+        title: 'Categories',
+        loadComponent: async () => (await import('#fin-track/view/categories')).CategoriesComponent,
+      },
+      {
         path: Path.SETTINGS,
         title: 'Settings',
         loadComponent: async () => (await import('#fin-track/view/settings')).SettingsComponent,

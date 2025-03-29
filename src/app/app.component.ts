@@ -1,15 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { ToastModule } from 'primeng/toast';
-
-const imports = [RouterOutlet, ToastModule];
+const imports = [RouterOutlet];
 
 @Component({
   selector: 'ft-root',
   template: `
+    <!-- loading -->
     <router-outlet />
-    <p-toast />
   `,
   styleUrl: './app.component.scss',
   imports,

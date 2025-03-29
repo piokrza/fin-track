@@ -5,4 +5,5 @@ export enum Path {
   SETTINGS = 'settings',
   FIN_TRACK = 'fin-track',
   DASHBOARD = 'dashboard',
+  CATEGORIES = 'categories',
 }
