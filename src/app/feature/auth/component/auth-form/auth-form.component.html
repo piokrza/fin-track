@@ -1,6 +1,6 @@
 <h1 class="text-center mb-6 text-3xl">{{ view() === 'login' ? 'Login' : 'Signin' }}</h1>
 
-<form class="grid gap-3 mb-5" [formGroup]="form" (ngSubmit)="formSubmit()" (keyup.enter)="formSubmit()">
+<form class="grid gap-3 mb-5" [formGroup]="form" (ngSubmit)="submit()" (keyup.enter)="submit()">
   @let ctrls = form.controls;
 
   <input pInputText placeholder="Email" type="text" [formControl]="ctrls.email" />
@@ -15,7 +15,7 @@
   styleClass="w-full"
   [disabled]="isProcessing()"
   [label]="view() === 'login' ? 'Login' : 'Signin'"
-  (onClick)="formSubmit()" />
+  (onClick)="submit()" />
 
 <p class="mt-7 text-center">
   {{ view() === 'login' ? "Don't have account?" : 'Have an account?' }}

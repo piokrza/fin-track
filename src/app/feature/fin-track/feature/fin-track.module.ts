@@ -19,6 +19,16 @@ const routes: Routes = [
         loadComponent: async () => (await import('#fin-track/view/dashboard')).DashboardComponent,
       },
       {
+        path: Path.HISTORY,
+        title: 'History',
+        loadComponent: async () => (await import('#fin-track/view/history')).HistoryComponent,
+      },
+      {
+        path: Path.BUDGET,
+        title: 'Budget',
+        loadComponent: async () => (await import('#fin-track/view/budget')).BudgetComponent,
+      },
+      {
         path: Path.CATEGORIES,
         title: 'Categories',
         loadComponent: async () => (await import('#fin-track/view/categories')).CategoriesComponent,

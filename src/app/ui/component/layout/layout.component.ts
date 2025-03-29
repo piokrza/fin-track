@@ -53,12 +53,20 @@ export class LayoutComponent {
   readonly PrimeIcons = PrimeIcons;
   readonly menuLinks: MegaMenuItem[] = [
     {
-      label: 'Dashboard',
+      label: 'Overview',
       routerLink: Path.DASHBOARD,
     },
     {
       routerLink: Path.CATEGORIES,
       label: 'Categories',
+    },
+    {
+      routerLink: Path.HISTORY,
+      label: 'History',
+    },
+    {
+      routerLink: Path.BUDGET,
+      label: 'Budget',
     },
     {
       routerLink: Path.SETTINGS,

@@ -1,1 +1,1 @@
-export * from './firestore.config';
+export * from './firebase.config';

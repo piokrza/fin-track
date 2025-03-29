@@ -30,7 +30,7 @@ export class AuthFormComponent {
 
   readonly isProcessing = input<boolean>();
   readonly view = input<'login' | 'signin'>('login');
-  readonly afSubmit = output<Partial<AuthPayload>>();
+  readonly formSubmit = output<Partial<AuthPayload>>();
 
   readonly form: AuthForm = new FormGroup({
     username: new FormControl('', { validators: [Validators.required], nonNullable: true }),
@@ -41,7 +41,7 @@ export class AuthFormComponent {
 
   readonly Path = Path;
 
-  formSubmit(): void {
+  submit(): void {
     if (this.form.invalid) {
       this.form.markAsDirty();
       return;
@@ -50,6 +50,6 @@ export class AuthFormComponent {
     const { email, password, username } = this.form.controls;
     const basePayload = { email: email.value, password: password.value };
 
-    this.afSubmit.emit(this.view() === 'login' ? basePayload : { ...basePayload, username: username.value });
+    this.formSubmit.emit(this.view() === 'login' ? basePayload : { ...basePayload, username: username.value });
   }
 }
