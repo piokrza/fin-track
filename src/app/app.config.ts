@@ -9,7 +9,7 @@ import { provideRouter } from '@angular/router';
 import Aura from '@primeng/themes/aura';
 import { routes } from 'src/app';
 
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 
 import { firebaseConfig } from '#core/firestore';
@@ -17,6 +17,7 @@ import { firebaseConfig } from '#core/firestore';
 export const appConfig: ApplicationConfig = {
   providers: [
     MessageService,
+    ConfirmationService,
     provideHttpClient(),
     provideRouter(routes),
     provideAnimationsAsync(),

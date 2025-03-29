@@ -1,33 +1,29 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { PanelModule } from 'primeng/panel';
 
 import { SidebarComponent } from '#ui/component/sidebar';
-import { TitleService } from '#ui/service';
 
 const imports = [PanelModule, SidebarComponent, RouterOutlet];
 
 @Component({
   selector: 'ft-layout',
   template: `
-    <div class="h-screen p-3">
-      <p-panel styleClass="h-full">
-        <div class="flex gap-3">
-          <ft-sidebar />
+    <div class="flex justify-center">
+      <div class="h-screen p-3 w-full max-w-[2000px]">
+        <p-panel styleClass="h-full">
+          <div class="flex gap-3">
+            <ft-sidebar />
 
-          <div class="flex-1">
-            <h1 class="mb-4 text-2xl">{{ title() }}</h1>
-            <router-outlet />
+            <div class="flex-1">
+              <router-outlet />
+            </div>
           </div>
-        </div>
-      </p-panel>
+        </p-panel>
+      </div>
     </div>
   `,
   imports,
 })
-export class LayoutComponent {
-  readonly #titleService = inject(TitleService);
-
-  readonly title = this.#titleService.title;
-}
+export class LayoutComponent {}
