@@ -7,7 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 
 import { AuthFormComponent } from '#auth/component/auth-form';
-import { AuthRequest } from '#auth/model';
+import { AuthPayload } from '#auth/model';
 import { AuthService } from '#auth/service';
 
 const imports = [InputTextModule, ReactiveFormsModule, ButtonModule, PasswordModule, AuthFormComponent];
@@ -21,7 +21,8 @@ export class LoginComponent {
   readonly #destroyRef = inject(DestroyRef);
   readonly #authService = inject(AuthService);
 
-  login(loginReq: AuthRequest): void {
-    this.#authService.login$(loginReq).pipe(takeUntilDestroyed(this.#destroyRef)).subscribe();
+  login({ email, password }: Partial<AuthPayload>): void {
+    if (!email || !password) return;
+    this.#authService.login$({ email, password }).pipe(takeUntilDestroyed(this.#destroyRef)).subscribe();
   }
 }

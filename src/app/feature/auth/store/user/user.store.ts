@@ -1,26 +1,17 @@
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 
-import { User, UserResponse } from '#auth/model';
+import { UserInfo } from '#auth/model';
 
 interface UserState {
-  user: User | null;
-  isLoading: boolean;
+  user: UserInfo | null | undefined;
 }
 
 export const UserStore = signalStore(
   { providedIn: 'root' },
   withState({ user: null, isLoading: false } as UserState),
   withMethods((store) => ({
-    setUser(user: UserResponse | null) {
-      patchState(store, () => {
-        if (!user) return { user: null };
-
-        const { email, id, username } = user;
-        return { user: { id, email, username } };
-      });
-    },
-    setIsLoading(isLoading: boolean) {
-      patchState(store, () => ({ isLoading }));
+    setUser(user: UserInfo | null) {
+      patchState(store, () => ({ user }));
     },
   }))
 );

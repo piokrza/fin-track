@@ -19,9 +19,7 @@ const imports = [RouterOutlet, ToastModule];
 export class AppComponent implements OnInit {
   readonly #authService = inject(AuthService);
 
-  title = 'fin-track';
-
   ngOnInit(): void {
-    // this.#authService.checkAuth();
+    this.#authService.setUser$().subscribe();
   }
 }

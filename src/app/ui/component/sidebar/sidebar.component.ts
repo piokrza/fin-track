@@ -5,7 +5,7 @@ import { MenuItem, PrimeIcons } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
 import { TooltipModule } from 'primeng/tooltip';
 
-import { UserStore } from '#auth/store/user';
+import { AuthService } from '#auth/service';
 import { Path } from '#core/enum';
 
 const imports = [AvatarModule, TooltipModule, RouterLink];
@@ -19,9 +19,12 @@ const imports = [AvatarModule, TooltipModule, RouterLink];
       <ul class="mt-8 grid gap-1">
         @for (item of menuItems; track $index) {
           <li
+            tabindex="0"
             class="flex justify-center items-center p-4 cursor-pointer rounded-sm hover:bg-(--p-surface-700)"
             [pTooltip]="item.tooltip"
-            [routerLink]="[item.routerLink]">
+            [routerLink]="[item.routerLink]"
+            (click)="handleClick(item.command)"
+            (keyup.enter)="handleClick(item.command)">
             <i [class]="item.icon"></i>
           </li>
         }
@@ -31,7 +34,7 @@ const imports = [AvatarModule, TooltipModule, RouterLink];
   imports,
 })
 export class SidebarComponent {
-  readonly userStore = inject(UserStore);
+  readonly #authService = inject(AuthService);
 
   readonly menuItems: MenuItem[] = [
     {
@@ -50,5 +53,19 @@ export class SidebarComponent {
         //
       },
     },
+    {
+      icon: PrimeIcons.SIGN_OUT,
+      tooltip: 'Logout',
+      command: () => {
+        this.#authService.logout();
+      },
+    },
   ];
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  handleClick(command?: any) {
+    if (command) {
+      command();
+    }
+  }
 }

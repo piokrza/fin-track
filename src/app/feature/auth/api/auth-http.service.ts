@@ -1,24 +1,39 @@
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {
+  Auth,
+  User,
+  user,
+  updateProfile,
+  UserCredential,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+} from '@angular/fire/auth';
+import { from, Observable } from 'rxjs';
 
-import { AuthRequest, AuthResponse } from '#auth/model';
-import { ApiService } from '#core/service';
+import { AuthPayload } from '#auth/model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthHttpService {
-  readonly #apiService = inject(ApiService);
+  readonly #firebaseAuth = inject(Auth);
 
-  readonly #baseUrl = 'auth/app/v1/auth/';
-
-  signup$(payload: AuthRequest): Observable<AuthResponse> {
-    return this.#apiService.post$(this.#baseUrl + 'signup', payload);
+  get user$(): Observable<User | null> {
+    return user(this.#firebaseAuth);
   }
 
-  login$(payload: AuthRequest): Observable<AuthResponse> {
-    return this.#apiService.post$(this.#baseUrl + 'login', payload);
+  signin$(payload: AuthPayload): Observable<void> {
+    return from(
+      createUserWithEmailAndPassword(this.#firebaseAuth, payload.email, payload.password).then(({ user }) => {
+        return updateProfile(user, { displayName: payload.username });
+      })
+    );
   }
 
-  logout$(): Observable<object> {
-    return this.#apiService.delete$('session');
+  login$(payload: AuthPayload): Observable<UserCredential> {
+    return from(signInWithEmailAndPassword(this.#firebaseAuth, payload.email, payload.password));
+  }
+
+  async logout(): Promise<void> {
+    return await signOut(this.#firebaseAuth);
   }
 }

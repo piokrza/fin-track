@@ -6,7 +6,7 @@ import { UserStore } from '#auth/store/user';
   selector: 'ft-dashboard',
   template: `
     <!--  -->
-    <h1>Dashboard works!</h1>
+    <h1>This is userName: {{ userStore.user()?.username }}</h1>
   `,
 })
 export class DashboardComponent {

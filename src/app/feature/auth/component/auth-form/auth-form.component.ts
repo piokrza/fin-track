@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input, output } from '@angular/core';
+import { Component, computed, effect, input, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
@@ -7,8 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 
-import { AuthForm, AuthRequest } from '#auth/model';
-import { UserStore } from '#auth/store/user';
+import { AuthForm, AuthPayload } from '#auth/model';
 import { Path } from '#core/enum';
 
 const imports = [InputTextModule, PasswordModule, ReactiveFormsModule, ButtonModule, RouterLink];
@@ -30,15 +29,13 @@ export class AuthFormComponent {
     });
   }
 
-  readonly userStore = inject(UserStore);
-
   readonly view = input<'login' | 'signin'>('login');
-  readonly afSubmit = output<AuthRequest>();
+  readonly afSubmit = output<Partial<AuthPayload>>();
 
   readonly form: AuthForm = new FormGroup({
     username: new FormControl('', { validators: [Validators.required], nonNullable: true }),
-    password: new FormControl('', { nonNullable: true }),
     email: new FormControl('', { validators: [Validators.required, Validators.email], nonNullable: true }),
+    password: new FormControl('', { nonNullable: true }),
   });
   readonly redirectPath = computed(() => ['../', this.view() === 'login' ? Path.SIGNIN : Path.LOGIN]);
 
@@ -52,7 +49,7 @@ export class AuthFormComponent {
     }
 
     const { email, password, username } = this.form.controls;
-    const basePayload: AuthRequest = { email: email.value, password: password.value };
+    const basePayload = { email: email.value, password: password.value };
 
     this.afSubmit.emit(this.view() === 'login' ? basePayload : { ...basePayload, username: username.value });
   }

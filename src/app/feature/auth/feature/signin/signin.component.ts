@@ -7,21 +7,23 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 
 import { AuthFormComponent } from '#auth/component/auth-form';
-import { AuthRequest } from '#auth/model';
+import { AuthPayload } from '#auth/model';
 import { AuthService } from '#auth/service';
 
 const imports = [InputTextModule, PasswordModule, ReactiveFormsModule, ButtonModule, AuthFormComponent];
 
 @Component({
   selector: 'ft-signin',
-  template: `<ft-auth-form view="signin" (afSubmit)="signup($event)" />`,
+  template: `<ft-auth-form view="signin" (afSubmit)="registerWithEmailAndPassword$($event)" />`,
   imports,
 })
 export class SigninComponent {
   readonly #destroyRef = inject(DestroyRef);
   readonly #authService = inject(AuthService);
 
-  signup(signinReq: AuthRequest): void {
-    this.#authService.signup$(signinReq).pipe(takeUntilDestroyed(this.#destroyRef)).subscribe();
+  registerWithEmailAndPassword$({ email, password, username }: Partial<AuthPayload>) {
+    if (!email || !password || !username) return;
+
+    return this.#authService.signin$({ email, password, username }).pipe(takeUntilDestroyed(this.#destroyRef)).subscribe();
   }
 }

@@ -1,7 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { UserStore } from '#auth/store/user';
 import { LayoutComponent } from '#ui/component/layout';
 
 const imports = [LayoutComponent, RouterOutlet];
@@ -15,6 +14,4 @@ const imports = [LayoutComponent, RouterOutlet];
   `,
   imports,
 })
-export class ViewComponent {
-  readonly userStore = inject(UserStore);
-}
+export class ViewComponent {}
