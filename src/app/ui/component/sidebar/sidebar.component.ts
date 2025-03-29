@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { MenuItem, PrimeIcons } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
@@ -34,6 +34,7 @@ const imports = [AvatarModule, TooltipModule, RouterLink];
   imports,
 })
 export class SidebarComponent {
+  readonly #router = inject(Router);
   readonly #authService = inject(AuthService);
 
   readonly menuItems: MenuItem[] = [
@@ -58,6 +59,7 @@ export class SidebarComponent {
       tooltip: 'Logout',
       command: () => {
         this.#authService.logout();
+        this.#router.navigate([Path.AUTH]);
       },
     },
   ];
