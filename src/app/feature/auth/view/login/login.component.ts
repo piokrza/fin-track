@@ -9,15 +9,17 @@ import { PasswordModule } from 'primeng/password';
 import { AuthFormComponent } from '#auth/component/auth-form';
 import { AuthPayload } from '#auth/model';
 import { AuthService } from '#auth/service';
+import { UserStore } from '#auth/store/user';
 
 const imports = [InputTextModule, ReactiveFormsModule, ButtonModule, PasswordModule, AuthFormComponent];
 
 @Component({
   selector: 'ft-login',
-  template: `<ft-auth-form (afSubmit)="login($event)" />`,
+  template: `<ft-auth-form [isProcessing]="userStore.isProcessing()" (afSubmit)="login($event)" />`,
   imports,
 })
 export class LoginComponent {
+  readonly userStore = inject(UserStore);
   readonly #destroyRef = inject(DestroyRef);
   readonly #authService = inject(AuthService);
 

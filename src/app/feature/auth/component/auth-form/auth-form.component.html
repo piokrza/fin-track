@@ -10,7 +10,12 @@
   <p-password styleClass="w-full" placeholder="Password" [feedback]="false" [formControl]="ctrls.password" />
 </form>
 
-<p-button type="submit" styleClass="w-full" [label]="view() === 'login' ? 'Login' : 'Signin'" (onClick)="formSubmit()" />
+<p-button
+  type="submit"
+  styleClass="w-full"
+  [disabled]="isProcessing()"
+  [label]="view() === 'login' ? 'Login' : 'Signin'"
+  (onClick)="formSubmit()" />
 
 <p class="mt-7 text-center">
   {{ view() === 'login' ? "Don't have account?" : 'Have an account?' }}

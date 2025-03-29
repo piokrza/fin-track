@@ -2,7 +2,6 @@ import { Component, computed, effect, input, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
-import { PrimeIcons } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
@@ -29,6 +28,7 @@ export class AuthFormComponent {
     });
   }
 
+  readonly isProcessing = input<boolean>();
   readonly view = input<'login' | 'signin'>('login');
   readonly afSubmit = output<Partial<AuthPayload>>();
 
@@ -40,7 +40,6 @@ export class AuthFormComponent {
   readonly redirectPath = computed(() => ['../', this.view() === 'login' ? Path.SIGNIN : Path.LOGIN]);
 
   readonly Path = Path;
-  readonly PrimeIcons = PrimeIcons;
 
   formSubmit(): void {
     if (this.form.invalid) {
