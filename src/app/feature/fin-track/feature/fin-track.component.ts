@@ -6,7 +6,7 @@ import { LayoutComponent } from '#ui/component/layout';
 const imports = [LayoutComponent, RouterOutlet];
 
 @Component({
-  selector: 'ft-view',
+  selector: 'ft-fin-track',
   template: `
     <ft-layout>
       <router-outlet />
@@ -14,4 +14,4 @@ const imports = [LayoutComponent, RouterOutlet];
   `,
   imports,
 })
-export class ViewComponent {}
+export class FinTrackComponent {}

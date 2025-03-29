@@ -13,13 +13,13 @@ export const routes: Routes = [
     path: Path.FIN_TRACK,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: () => redirectUnauthorizedTo([Path.AUTH]) },
-    loadChildren: async () => (await import('#fin-track/view')).FinTrackViewModule,
+    loadChildren: async () => (await import('#fin-track/feature')).FinTrackModule,
   },
   {
     path: Path.AUTH,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: () => redirectLoggedInTo([Path.DASHBOARD]) },
-    loadChildren: async () => (await import('#auth/view')).AuthViewModule,
+    loadChildren: async () => (await import('#auth/feature')).AuthModule,
   },
   {
     path: '**',

@@ -6,7 +6,7 @@ import { Path } from '#core/enum';
 const routes: Routes = [
   {
     path: '',
-    loadComponent: async () => (await import('#auth/view')).AuthViewComponent,
+    loadComponent: async () => (await import('#auth/feature')).AuthComponent,
     children: [
       {
         path: '',
@@ -15,15 +15,15 @@ const routes: Routes = [
       },
       {
         path: Path.LOGIN,
-        loadComponent: async () => (await import('#auth/feature/login')).LoginComponent,
+        loadComponent: async () => (await import('#auth/view/login')).LoginComponent,
       },
       {
         path: Path.SIGNIN,
-        loadComponent: async () => (await import('#auth/feature/signin')).SigninComponent,
+        loadComponent: async () => (await import('#auth/view/signin')).SigninComponent,
       },
     ],
   },
 ];
 
 @NgModule({ imports: [RouterModule.forChild(routes)] })
-export class AuthViewModule {}
+export class AuthModule {}
