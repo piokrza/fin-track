@@ -8,14 +8,15 @@ interface UserState {
 
 export const UserStore = signalStore(
   { providedIn: 'root' },
-  withState({
+  withState<UserState>({
     user: null,
     isProcessing: false,
-  } as UserState),
+  }),
   withMethods((store) => ({
     setUser(user: User | null) {
       patchState(store, () => ({ user }));
     },
+
     setIsProcessing(isProcessing: boolean) {
       patchState(store, () => ({ isProcessing }));
     },

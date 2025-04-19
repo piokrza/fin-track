@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 
-import { UserStore } from '#auth/store/user';
+import { UserStore } from '#auth/store';
 
 @Component({
   selector: 'ft-dashboard',

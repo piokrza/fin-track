@@ -10,7 +10,7 @@ import { PasswordModule } from 'primeng/password';
 
 import { AuthForm, AuthPayload } from '#auth/model';
 import { AuthService } from '#auth/service';
-import { UserStore } from '#auth/store/user';
+import { UserStore } from '#auth/store';
 import { Path } from '#core/enum';
 
 const imports = [InputTextModule, PasswordModule, ReactiveFormsModule, ButtonModule, RouterLink];

@@ -5,7 +5,7 @@ import { finalize, from, Observable, tap } from 'rxjs';
 
 import { AuthHttpService } from '#auth/api';
 import { AuthPayload } from '#auth/model';
-import { UserStore } from '#auth/store/user';
+import { UserStore } from '#auth/store';
 import { Path } from '#core/enum';
 import { ProgressBarService } from '#ui/service';
 
