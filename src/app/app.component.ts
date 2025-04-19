@@ -1,21 +1,27 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { AuthService } from '#auth/service';
-import { ProgressBarComponent } from '#ui/component/progress-bar';
+import { ProgressBarModule } from 'primeng/progressbar';
 
-const imports = [RouterOutlet, ProgressBarComponent];
+import { AuthService } from '#auth/service';
+import { ProgressBarService } from '#ui/service';
+
+const imports = [RouterOutlet, ProgressBarModule];
 
 @Component({
   selector: 'ft-root',
   template: `
-    <ft-progress-bar />
+    @if (isProgressBarVisible()) {
+      <p-progressbar class="absolute inset-x-0 top-0" mode="indeterminate" [style]="{ height: '.25rem' }" />
+    }
     <router-outlet />
   `,
   imports,
 })
 export class AppComponent implements OnInit {
   readonly #authService = inject(AuthService);
+
+  readonly isProgressBarVisible = inject(ProgressBarService).isProcessing;
 
   ngOnInit(): void {
     this.#authService.setUser$().subscribe();

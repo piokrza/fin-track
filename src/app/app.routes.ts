@@ -13,7 +13,7 @@ export const routes: Routes = [
     path: Path.FIN_TRACK,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: () => redirectUnauthorizedTo([Path.AUTH]) },
-    loadChildren: async () => (await import('#fin-track/feature')).FinTrackModule,
+    loadChildren: async () => (await import('#fin-track/route')).FinTrackRoutes,
   },
   {
     path: Path.AUTH,
