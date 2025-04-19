@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { User, UserCredential } from '@angular/fire/auth';
+import { Auth, GoogleAuthProvider, signInWithPopup, User, UserCredential } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { finalize, Observable, tap } from 'rxjs';
+import { finalize, from, Observable, tap } from 'rxjs';
 
 import { AuthHttpService } from '#auth/api';
 import { AuthPayload } from '#auth/model';
@@ -11,6 +11,7 @@ import { ProgressBarService } from '#ui/service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  readonly #auth = inject(Auth);
   readonly #router = inject(Router);
   readonly #userStore = inject(UserStore);
   readonly #authHttpService = inject(AuthHttpService);
@@ -46,6 +47,17 @@ export class AuthService {
     );
   }
 
+  signInWithGoogle$() {
+    this.#userStore.setIsProcessing(true);
+
+    return from(signInWithPopup(this.#auth, new GoogleAuthProvider())).pipe(
+      tap(() => {
+        this.#router.navigate([Path.FIN_TRACK]);
+      }),
+      finalize(() => this.#userStore.setIsProcessing(false))
+    );
+  }
+
   logout(): Promise<void> {
     return this.#authHttpService.logout();
   }
@@ -54,8 +66,8 @@ export class AuthService {
     this.#progressBarService.setIsProcessing(true);
 
     return this.#authHttpService.user$.pipe(
-      tap((user) => {
-        this.#userStore.setUser({ email: user?.email ?? '', username: user?.displayName ?? '' });
+      tap((user: User | null) => {
+        this.#userStore.setUser(user);
         this.#progressBarService.setIsProcessing(false);
       })
     );

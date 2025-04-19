@@ -8,17 +8,31 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { MegaMenuModule } from 'primeng/megamenu';
 import { PanelModule } from 'primeng/panel';
 import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
 
 import { AuthService } from '#auth/service';
+import { UserStore } from '#auth/store/user';
 import { Path } from '#core/enum';
+import { InitialsPipe } from '#core/pipe';
 
-const imports = [PanelModule, RouterOutlet, MegaMenuModule, AvatarModule, ConfirmPopupModule, ToastModule, ButtonModule];
+const imports = [
+  PanelModule,
+  ToastModule,
+  RouterOutlet,
+  AvatarModule,
+  InitialsPipe,
+  ButtonModule,
+  ToolbarModule,
+  MegaMenuModule,
+  ConfirmPopupModule,
+];
 
 @Component({
   selector: 'ft-layout',
   template: `
+    @let user = userStore.user();
     <div class="flex justify-center">
-      <div class="h-screen p-3 w-full max-w-[2000px]">
+      <div class="h-screen p-3 w-full max-w-[2100px]">
         <p-panel [showHeader]="false" styleClass="h-full">
           <p-mega-menu styleClass="mt-4" [model]="menuLinks">
             <ng-template #start>
@@ -27,8 +41,11 @@ const imports = [PanelModule, RouterOutlet, MegaMenuModule, AvatarModule, Confir
 
             <ng-template #end>
               <div class="flex items-center gap-3">
-                <p-avatar size="normal" shape="circle" [label]="'P'" />
-                <p-button size="small" severity="info" [icon]="PrimeIcons.SIGN_OUT" (onClick)="logout($event)" />
+                <p-avatar
+                  shape="circle"
+                  [image]="user?.photoURL ?? ''"
+                  [label]="user?.photoURL ? '' : (user?.displayName ?? '' | initials)" />
+                <p-button [outlined]="true" [text]="true" [icon]="PrimeIcons.SIGN_OUT" (onClick)="logout($event)" />
               </div>
             </ng-template>
           </p-mega-menu>
@@ -47,6 +64,7 @@ const imports = [PanelModule, RouterOutlet, MegaMenuModule, AvatarModule, Confir
 })
 export class LayoutComponent {
   readonly #router = inject(Router);
+  readonly userStore = inject(UserStore);
   readonly #authService = inject(AuthService);
   readonly #confirmationService = inject(ConfirmationService);
 

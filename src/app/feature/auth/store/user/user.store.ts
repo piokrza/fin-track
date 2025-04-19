@@ -1,10 +1,9 @@
+import { User } from '@angular/fire/auth';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-
-import { UserInfo } from '#auth/model';
 
 interface UserState {
   isProcessing: boolean;
-  user: UserInfo | null | undefined;
+  user: User | null | undefined;
 }
 
 export const UserStore = signalStore(
@@ -14,7 +13,7 @@ export const UserStore = signalStore(
     isProcessing: false,
   } as UserState),
   withMethods((store) => ({
-    setUser(user: UserInfo | null) {
+    setUser(user: User | null) {
       patchState(store, () => ({ user }));
     },
     setIsProcessing(isProcessing: boolean) {
