@@ -4,6 +4,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": ".",
+    "rootDir": ".",
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,
@@ -21,6 +22,7 @@
     "paths": {
       "#auth/*": ["src/app/feature/auth/*"],
       "#core/*": ["src/app/core/*"],
+      "#test/*": ["src/app/test/*"],
       "#ui/*": ["src/app/ui/*"],
       "#fin-track/*": ["src/app/feature/fin-track/*"]
     }

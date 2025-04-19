@@ -15,11 +15,11 @@ const routes: Routes = [
       },
       {
         path: Path.LOGIN,
-        loadComponent: async () => (await import('#auth/view/login')).LoginComponent,
+        loadComponent: async () => (await import('#auth/page/login')).LoginComponent,
       },
       {
         path: Path.SIGNIN,
-        loadComponent: async () => (await import('#auth/view/signin')).SigninComponent,
+        loadComponent: async () => (await import('#auth/page/signin')).SigninComponent,
       },
     ],
   },

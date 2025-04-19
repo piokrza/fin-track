@@ -32,14 +32,12 @@ export class AuthService {
     );
   }
 
-  signin$(payload: AuthPayload): Observable<void> {
+  signin$(payload: AuthPayload): Observable<UserCredential> {
     this.#userStore.setIsProcessing(true);
     this.#progressBarService.setIsProcessing(this.#userStore.isProcessing());
 
     return this.#authHttpService.signin$(payload).pipe(
-      tap(() => {
-        this.#router.navigate([Path.FIN_TRACK]);
-      }),
+      tap(() => this.#router.navigate([Path.FIN_TRACK])),
       finalize(() => {
         this.#userStore.setIsProcessing(false);
         this.#progressBarService.setIsProcessing(this.#userStore.isProcessing());
@@ -47,13 +45,11 @@ export class AuthService {
     );
   }
 
-  signInWithGoogle$() {
+  signInWithGoogle$(): Observable<UserCredential> {
     this.#userStore.setIsProcessing(true);
 
     return from(signInWithPopup(this.#auth, new GoogleAuthProvider())).pipe(
-      tap(() => {
-        this.#router.navigate([Path.FIN_TRACK]);
-      }),
+      tap(() => this.#router.navigate([Path.FIN_TRACK])),
       finalize(() => this.#userStore.setIsProcessing(false))
     );
   }

@@ -3,13 +3,13 @@ import {
   Auth,
   User,
   user,
+  signOut,
   updateProfile,
   UserCredential,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  signOut,
 } from '@angular/fire/auth';
-import { from, Observable } from 'rxjs';
+import { from, Observable, tap } from 'rxjs';
 
 import { AuthPayload } from '#auth/model';
 
@@ -21,11 +21,9 @@ export class AuthHttpService {
     return user(this.#firebaseAuth);
   }
 
-  signin$(payload: AuthPayload): Observable<void> {
-    return from(
-      createUserWithEmailAndPassword(this.#firebaseAuth, payload.email, payload.password).then(({ user }) => {
-        return updateProfile(user, { displayName: payload.username });
-      })
+  signin$(payload: AuthPayload): Observable<UserCredential> {
+    return from(createUserWithEmailAndPassword(this.#firebaseAuth, payload.email, payload.password)).pipe(
+      tap(async ({ user }) => await updateProfile(user, { displayName: payload.username }))
     );
   }
 
