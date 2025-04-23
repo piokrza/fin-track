@@ -1,12 +1,11 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 
 import { Path } from '#core/enum';
 
-const routes: Routes = [
+export const AuthRoutes: Routes = [
   {
     path: '',
-    loadComponent: async () => (await import('#auth/feature')).AuthComponent,
+    loadComponent: async () => (await import('#auth/component/auth-container')).AuthContainerComponent,
     children: [
       {
         path: '',
@@ -24,6 +23,3 @@ const routes: Routes = [
     ],
   },
 ];
-
-@NgModule({ imports: [RouterModule.forChild(routes)] })
-export class AuthModule {}

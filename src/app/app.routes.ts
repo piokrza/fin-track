@@ -19,7 +19,7 @@ export const routes: Routes = [
     path: Path.AUTH,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: () => redirectLoggedInTo([Path.DASHBOARD]) },
-    loadChildren: async () => (await import('#auth/feature')).AuthModule,
+    loadChildren: async () => (await import('#auth/route')).AuthRoutes,
   },
   {
     path: '**',
