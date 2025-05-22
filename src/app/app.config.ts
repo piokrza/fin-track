@@ -11,11 +11,13 @@ import { routes } from 'src/app';
 
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
+import { DialogService } from 'primeng/dynamicdialog';
 
 import { firebaseConfig } from '#core/firestore';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    DialogService,
     MessageService,
     ConfirmationService,
     provideHttpClient(),
