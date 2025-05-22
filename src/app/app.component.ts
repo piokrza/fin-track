@@ -11,7 +11,7 @@ const imports = [RouterOutlet, ProgressBarModule];
 @Component({
   selector: 'ft-root',
   template: `
-    @if (isProgressBarVisible()) {
+    @if (isProcessing()) {
       <p-progressbar class="absolute inset-x-0 top-0" mode="indeterminate" [style]="{ height: '.25rem' }" />
     }
     <router-outlet />
@@ -21,7 +21,7 @@ const imports = [RouterOutlet, ProgressBarModule];
 export class AppComponent implements OnInit {
   readonly #authService = inject(AuthService);
 
-  readonly isProgressBarVisible = inject(ProgressBarService).isProcessing;
+  readonly isProcessing = inject(ProgressBarService).select('isProcessing');
 
   ngOnInit(): void {
     this.#authService.setUser$().subscribe();

@@ -19,7 +19,7 @@ export class AuthService {
 
   login$(payload: AuthPayload): Observable<UserCredential> {
     this.#userStore.setIsProcessing(true);
-    this.#progressBarService.setIsProcessing(this.#userStore.isProcessing());
+    this.#progressBarService.update('isProcessing', this.#userStore.isProcessing());
 
     return this.#authHttpService.login$(payload).pipe(
       tap(() => {
@@ -27,20 +27,20 @@ export class AuthService {
       }),
       finalize(() => {
         this.#userStore.setIsProcessing(false);
-        this.#progressBarService.setIsProcessing(this.#userStore.isProcessing());
+        this.#progressBarService.update('isProcessing', this.#userStore.isProcessing());
       })
     );
   }
 
   signin$(payload: AuthPayload): Observable<UserCredential> {
     this.#userStore.setIsProcessing(true);
-    this.#progressBarService.setIsProcessing(this.#userStore.isProcessing());
+    this.#progressBarService.update('isProcessing', this.#userStore.isProcessing());
 
     return this.#authHttpService.signin$(payload).pipe(
       tap(() => this.#router.navigate([Path.FIN_TRACK])),
       finalize(() => {
         this.#userStore.setIsProcessing(false);
-        this.#progressBarService.setIsProcessing(this.#userStore.isProcessing());
+        this.#progressBarService.update('isProcessing', this.#userStore.isProcessing());
       })
     );
   }
@@ -59,12 +59,12 @@ export class AuthService {
   }
 
   setUser$(): Observable<User | null> {
-    this.#progressBarService.setIsProcessing(true);
+    this.#progressBarService.update('isProcessing', true);
 
     return this.#authHttpService.user$.pipe(
       tap((user: User | null) => {
         this.#userStore.setUser(user);
-        this.#progressBarService.setIsProcessing(false);
+        this.#progressBarService.update('isProcessing', false);
       })
     );
   }

@@ -1,11 +1,10 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
+
+import { Store } from '#core/abstract';
 
 @Injectable({ providedIn: 'root' })
-export class ProgressBarService {
-  readonly #isProcessing = signal(false);
-  readonly isProcessing = this.#isProcessing.asReadonly();
-
-  setIsProcessing(isProcessing: boolean): void {
-    this.#isProcessing.set(isProcessing);
+export class ProgressBarService extends Store<{ isProcessing: boolean }> {
+  constructor() {
+    super({ isProcessing: false });
   }
 }
