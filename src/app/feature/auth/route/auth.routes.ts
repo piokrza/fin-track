@@ -14,10 +14,12 @@ export const AuthRoutes: Routes = [
       },
       {
         path: Path.LOGIN,
+        title: 'Login',
         loadComponent: async () => (await import('#auth/page/login')).LoginComponent,
       },
       {
         path: Path.SIGNIN,
+        title: 'Signin',
         loadComponent: async () => (await import('#auth/page/signin')).SigninComponent,
       },
     ],
