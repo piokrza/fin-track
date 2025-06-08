@@ -26,9 +26,7 @@ export class AuthFormComponent {
     effect(() => {
       if (this.view() === 'signin') {
         this.form.controls.username.addValidators([Validators.required]);
-      } else {
-        this.form.controls.username.removeValidators([Validators.required]);
-      }
+      } else this.form.controls.username.removeValidators([Validators.required]);
     });
   }
 

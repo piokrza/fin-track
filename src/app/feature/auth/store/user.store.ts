@@ -1,9 +1,11 @@
 import { User } from '@angular/fire/auth';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 
+import { Nullable } from '#core/model';
+
 interface UserState {
   isProcessing: boolean;
-  user: User | null | undefined;
+  user: Nullable<User>;
 }
 
 export const UserStore = signalStore(
