@@ -1,16 +1,21 @@
 import { Component, inject } from '@angular/core';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 
-import { UserStore } from '#auth/store';
+import { AddTransactionDialogComponent } from '#fin-track/component/add-transaction-dialog';
 import { TransactionsComponent } from '#fin-track/component/transactions';
 
-const imports = [MatButtonModule, TransactionsComponent];
+const imports = [MatButtonModule, MatIconModule, TransactionsComponent];
 
 @Component({
   selector: 'ft-dashboard',
   template: `
-    <button matButton (click)="addTransaction()">plus</button>
+    <button matFab extended="" (click)="addTransaction()">
+      <mat-icon>material-symbols-outlined">transfer-within-a-station</mat-icon>
+      Add transaction
+    </button>
 
     <div class="mt-6">
       <ft-transactions />
@@ -19,15 +24,9 @@ const imports = [MatButtonModule, TransactionsComponent];
   imports,
 })
 export class DashboardComponent {
-  // readonly #dialogService = inject(DialogService);
-
-  readonly userStore = inject(UserStore);
+  readonly #dialog = inject(MatDialog);
 
   addTransaction(): void {
-    // this.#dialogService.open(AddTransactionDialogComponent, {
-    //   header: 'Add transaction',
-    //   width: '70%',
-    //   maximizable: true,
-    // });
+    this.#dialog.open(AddTransactionDialogComponent, {});
   }
 }
