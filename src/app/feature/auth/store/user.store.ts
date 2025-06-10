@@ -1,6 +1,7 @@
+import { Injectable } from '@angular/core';
 import { User } from '@angular/fire/auth';
-import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 
+import { Store } from '#core/abstract';
 import { Nullable } from '#core/model';
 
 interface UserState {
@@ -8,19 +9,29 @@ interface UserState {
   user: Nullable<User>;
 }
 
-export const UserStore = signalStore(
-  { providedIn: 'root' },
-  withState<UserState>({
-    user: null,
-    isProcessing: false,
-  }),
-  withMethods((store) => ({
-    setUser(user: User | null) {
-      patchState(store, () => ({ user }));
-    },
+@Injectable({ providedIn: 'root' })
+export class UserStore extends Store<UserState> {
+  constructor() {
+    super({
+      user: null,
+      isProcessing: false,
+    });
+  }
+}
 
-    setIsProcessing(isProcessing: boolean) {
-      patchState(store, () => ({ isProcessing }));
-    },
-  }))
-);
+// export const UserStore = signalStore(
+//   { providedIn: 'root' },
+//   withState<UserState>({
+//     user: null,
+//     isProcessing: false,
+//   }),
+//   withMethods((store) => ({
+//     setUser(user: User | null) {
+//       patchState(store, () => ({ user }));
+//     },
+
+//     setIsProcessing(isProcessing: boolean) {
+//       patchState(store, () => ({ isProcessing }));
+//     },
+//   }))
+// );

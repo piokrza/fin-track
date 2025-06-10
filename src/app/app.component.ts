@@ -1,18 +1,18 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { ProgressBarModule } from 'primeng/progressbar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { AuthService } from '#auth/service';
 import { ProgressBarService } from '#ui/service';
 
-const imports = [RouterOutlet, ProgressBarModule];
+const imports = [RouterOutlet, MatProgressBarModule];
 
 @Component({
   selector: 'ft-root',
   template: `
     @if (isProcessing()) {
-      <p-progressbar class="absolute inset-x-0 top-0" mode="indeterminate" [style]="{ height: '.25rem' }" />
+      <mat-progress-bar class="absolute inset-x-0 top-0" mode="indeterminate" [style]="{ height: '.25rem' }" />
     }
     <router-outlet />
   `,

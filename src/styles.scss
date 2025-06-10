@@ -1,7 +1,14 @@
 @use 'tailwindcss';
-@use 'primeicons/primeicons.css';
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+html,
+body {
+  height: 100%;
   min-height: 100vh;
+  margin: 0;
+
+  color: #fff;
 }

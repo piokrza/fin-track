@@ -1,22 +1,26 @@
+@let ctrls = form.controls;
+
 <h1 class="text-center mb-6 text-3xl">{{ view() === 'login' ? 'Login' : 'Signin' }}</h1>
 
 <form class="grid gap-3 mb-5" [formGroup]="form" (ngSubmit)="submit()" (keyup.enter)="submit()">
-  @let ctrls = form.controls;
-
-  <input pInputText placeholder="Email" type="text" [formControl]="ctrls.email" />
+  <mat-form-field>
+    <input matInput placeholder="Email" type="text" [formControl]="ctrls.email" />
+  </mat-form-field>
 
   @if (this.view() === 'signin') {
-    <input pInputText placeholder="Username" type="text" [formControl]="ctrls.username" />
+    <mat-form-field>
+      <input matInput placeholder="Username" type="text" [formControl]="ctrls.username" />
+    </mat-form-field>
   }
-  <p-password styleClass="w-full" placeholder="Password" [feedback]="false" [formControl]="ctrls.password" />
+
+  <mat-form-field>
+    <input matInput type="password" class="w-full" placeholder="Password" [formControl]="ctrls.password" />
+  </mat-form-field>
 </form>
 
-<p-button
-  type="submit"
-  styleClass="w-full"
-  [disabled]="isProcessing()"
-  [label]="view() === 'login' ? 'Login' : 'Signin'"
-  (onClick)="submit()" />
+<button matButton="filled" type="submit" class="w-full" [disabled]="isProcessing()" (click)="submit()">
+  {{ view() === 'login' ? 'Login' : 'Signin' }}
+</button>
 
 <p class="mt-7 text-center">
   {{ view() === 'login' ? "Don't have account?" : 'Have an account?' }}
@@ -28,10 +32,5 @@
 <p class="text-center my-2">or</p>
 
 <div class="flex justify-center">
-  <p-button
-    severity="info"
-    label="Sign in with Google"
-    [icon]="PrimeIcons.GOOGLE"
-    [disabled]="isProcessing()"
-    (onClick)="signInWithGoogle()" />
+  <button matButton="filled" [disabled]="isProcessing()" (click)="signInWithGoogle()">Sign in with Google</button>
 </div>

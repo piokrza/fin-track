@@ -18,39 +18,39 @@ export class AuthService {
   readonly #progressBarService = inject(ProgressBarService);
 
   login$(payload: AuthPayload): Observable<UserCredential> {
-    this.#userStore.setIsProcessing(true);
-    this.#progressBarService.update('isProcessing', this.#userStore.isProcessing());
+    this.#userStore.update('isProcessing', true);
+    this.#progressBarService.update('isProcessing', this.#userStore.select('isProcessing')());
 
     return this.#authHttpService.login$(payload).pipe(
       tap(() => {
         this.#router.navigate([Path.FIN_TRACK]);
       }),
       finalize(() => {
-        this.#userStore.setIsProcessing(false);
-        this.#progressBarService.update('isProcessing', this.#userStore.isProcessing());
+        this.#userStore.update('isProcessing', false);
+        this.#progressBarService.update('isProcessing', this.#userStore.select('isProcessing')());
       })
     );
   }
 
   signin$(payload: AuthPayload): Observable<UserCredential> {
-    this.#userStore.setIsProcessing(true);
-    this.#progressBarService.update('isProcessing', this.#userStore.isProcessing());
+    this.#userStore.update('isProcessing', true);
+    this.#progressBarService.update('isProcessing', this.#userStore.select('isProcessing')());
 
     return this.#authHttpService.signin$(payload).pipe(
       tap(() => this.#router.navigate([Path.FIN_TRACK])),
       finalize(() => {
-        this.#userStore.setIsProcessing(false);
-        this.#progressBarService.update('isProcessing', this.#userStore.isProcessing());
+        this.#userStore.update('isProcessing', false);
+        this.#progressBarService.update('isProcessing', this.#userStore.select('isProcessing')());
       })
     );
   }
 
   signInWithGoogle$(): Observable<UserCredential> {
-    this.#userStore.setIsProcessing(true);
+    this.#userStore.update('isProcessing', true);
 
     return from(signInWithPopup(this.#auth, new GoogleAuthProvider())).pipe(
       tap(() => this.#router.navigate([Path.FIN_TRACK])),
-      finalize(() => this.#userStore.setIsProcessing(false))
+      finalize(() => this.#userStore.update('isProcessing', false))
     );
   }
 
@@ -63,7 +63,7 @@ export class AuthService {
 
     return this.#authHttpService.user$.pipe(
       tap((user: User | null) => {
-        this.#userStore.setUser(user);
+        this.#userStore.update('user', user);
         this.#progressBarService.update('isProcessing', false);
       })
     );

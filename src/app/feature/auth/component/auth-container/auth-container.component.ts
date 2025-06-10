@@ -2,19 +2,18 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 
-import { CardModule } from 'primeng/card';
-import { SelectButtonModule } from 'primeng/selectbutton';
+import { MatCardModule } from '@angular/material/card';
 
-const imports = [SelectButtonModule, FormsModule, CardModule, RouterOutlet];
+const imports = [FormsModule, MatCardModule, RouterOutlet];
 
 @Component({
   selector: 'ft-auth-container',
   template: `
     <section class="h-screen flex justify-center items-center p-4">
       <div class="w-full max-w-lg">
-        <p-card styleClass="w-full">
+        <mat-card class="p-4">
           <router-outlet />
-        </p-card>
+        </mat-card>
       </div>
     </section>
   `,

@@ -1,0 +1,41 @@
+<mat-toolbar>
+  <div class="w-full flex justify-between items-center">
+    <div class="flex gap-4">
+      <button matIconButton class="cursor-pointer lg:hidden" (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="flex items-center">FinTrack</span>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <img class="rounded-full shrink-0 w-11 h-11" width="40" height="40" alt="avatar" [ngSrc]="user()?.photoURL ?? ''" />
+      <div>
+        <div class="text-sm">{{ user()?.displayName }}</div>
+        <div class="text-xs">{{ user()?.email }}</div>
+      </div>
+    </div>
+  </div>
+</mat-toolbar>
+
+<mat-drawer-container class="h-full" autosize>
+  <mat-drawer #drawer mode="side" [opened]="true">
+    <nav class="h-full flex flex-col justify-between p-4">
+      <mat-nav-list>
+        @for (link of linksTop; track $index) {
+          <a mat-list-item routerLinkActive="active" [routerLink]="[link.routerLink]" [routerLinkActiveOptions]="{ exact: true }">
+            {{ link.label }}
+          </a>
+        }
+      </mat-nav-list>
+
+      <button matFab extended>
+        <mat-icon>logout</mat-icon>
+        Logout
+      </button>
+    </nav>
+  </mat-drawer>
+
+  <main class="p-4">
+    <router-outlet />
+  </main>
+</mat-drawer-container>

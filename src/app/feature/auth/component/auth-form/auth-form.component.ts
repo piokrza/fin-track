@@ -3,22 +3,19 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
-import { PrimeIcons } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from 'primeng/password';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 import { AuthForm, AuthPayload } from '#auth/model';
 import { AuthService } from '#auth/service';
 import { UserStore } from '#auth/store';
 import { Path } from '#core/enum';
 
-const imports = [InputTextModule, PasswordModule, ReactiveFormsModule, ButtonModule, RouterLink];
+const imports = [ReactiveFormsModule, MatButtonModule, MatInputModule, RouterLink];
 
 @Component({
   selector: 'ft-auth-form',
   templateUrl: './auth-form.component.html',
-  styleUrl: './auth-form.component.scss',
   imports,
 })
 export class AuthFormComponent {
@@ -41,11 +38,10 @@ export class AuthFormComponent {
     email: new FormControl('', { validators: [Validators.required, Validators.email], nonNullable: true }),
     password: new FormControl('', { nonNullable: true }),
   });
-  readonly isProcessing = inject(UserStore).isProcessing;
+  readonly isProcessing = inject(UserStore).select('isProcessing');
   readonly redirectPath = computed(() => ['../', this.view() === 'login' ? Path.SIGNIN : Path.LOGIN]);
 
   readonly Path = Path;
-  readonly PrimeIcons = PrimeIcons;
 
   submit(): void {
     if (this.form.invalid) {
