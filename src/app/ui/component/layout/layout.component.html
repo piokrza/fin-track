@@ -17,8 +17,8 @@
   </div>
 </mat-toolbar>
 
-<mat-drawer-container class="h-full" autosize>
-  <mat-drawer #drawer mode="side" [opened]="true">
+<mat-drawer-container class="" autosize>
+  <mat-drawer #drawer [mode]="isMobile() ? 'over' : 'side'" [opened]="true">
     <nav class="h-full flex flex-col justify-between p-4">
       <mat-nav-list>
         @for (link of links; track $index) {
@@ -35,7 +35,7 @@
     </nav>
   </mat-drawer>
 
-  <main class="p-4">
+  <main class="p-4 h-[calc(100vh-var(--mat-toolbar-standard-height))]">
     <router-outlet />
   </main>
 </mat-drawer-container>

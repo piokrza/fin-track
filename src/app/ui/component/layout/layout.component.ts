@@ -1,6 +1,9 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { NgOptimizedImage } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { map } from 'rxjs';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,12 +32,16 @@ const imports = [
 @Component({
   selector: 'ft-layout',
   templateUrl: './layout.component.html',
+  styleUrl: './layout.component.scss',
   imports,
 })
 export class LayoutComponent {
   readonly #router = inject(Router);
   readonly userStore = inject(UserStore);
   readonly #authService = inject(AuthService);
+  readonly #breakpointObserver = inject(BreakpointObserver);
+
+  readonly isMobile = toSignal(this.#breakpointObserver.observe(['(max-width: 960px)']).pipe(map(({ matches }) => matches)));
 
   readonly user = this.userStore.select('user');
   readonly links: Link[] = [
