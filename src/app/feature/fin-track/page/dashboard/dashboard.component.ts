@@ -12,8 +12,8 @@ const imports = [MatButtonModule, MatIconModule, TransactionsComponent];
 @Component({
   selector: 'ft-dashboard',
   template: `
-    <button matFab extended="" (click)="addTransaction()">
-      <mat-icon>material-symbols-outlined">transfer-within-a-station</mat-icon>
+    <button matFab extended (click)="addTransaction()">
+      <mat-icon>add</mat-icon>
       Add transaction
     </button>
 

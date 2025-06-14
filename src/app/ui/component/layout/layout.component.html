@@ -21,14 +21,14 @@
   <mat-drawer #drawer mode="side" [opened]="true">
     <nav class="h-full flex flex-col justify-between p-4">
       <mat-nav-list>
-        @for (link of linksTop; track $index) {
+        @for (link of links; track $index) {
           <a mat-list-item routerLinkActive="active" [routerLink]="[link.routerLink]" [routerLinkActiveOptions]="{ exact: true }">
             {{ link.label }}
           </a>
         }
       </mat-nav-list>
 
-      <button matFab extended>
+      <button matFab extended (click)="logout()">
         <mat-icon>logout</mat-icon>
         Logout
       </button>

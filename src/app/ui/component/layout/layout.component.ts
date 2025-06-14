@@ -11,7 +11,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { AuthService } from '#auth/service';
 import { UserStore } from '#auth/store';
 import { Path } from '#core/enum';
-import { MenuItem } from '#ui/model';
+import { Link } from '#ui/model';
 
 const imports = [
   RouterLink,
@@ -29,7 +29,6 @@ const imports = [
 @Component({
   selector: 'ft-layout',
   templateUrl: './layout.component.html',
-  styleUrl: './layout.component.scss',
   imports,
 })
 export class LayoutComponent {
@@ -38,8 +37,7 @@ export class LayoutComponent {
   readonly #authService = inject(AuthService);
 
   readonly user = this.userStore.select('user');
-
-  linksTop: MenuItem[] = [
+  readonly links: Link[] = [
     {
       label: 'Dashboard',
       routerLink: Path.DASHBOARD,
@@ -62,29 +60,7 @@ export class LayoutComponent {
     },
   ];
 
-  linksBottom: MenuItem[] = [
-    {
-      label: 'Logout',
-      command: () => {
-        this.#authService.logout().then(() => void this.#router.navigate([Path.AUTH]));
-      },
-    },
-  ];
-
-  // readonly menuLinks: MenuItem[] = [
-  //   { label: 'Overview', routerLink: Path.DASHBOARD },
-  //   { routerLink: Path.CATEGORIES, label: 'Categories' },
-  //   { routerLink: Path.HISTORY, label: 'History' },
-  //   { routerLink: Path.BUDGET, label: 'Budget' },
-  //   { routerLink: Path.SETTINGS, label: 'Settings' },
-  // ];
-  // readonly tieredMenuItems: MenuItem[] = [
-  //   {
-  //     label: 'Logout',
-  //     icon: PrimeIcons.SIGN_OUT,
-  //     command: () => {
-  //       this.#authService.logout().then(() => void this.#router.navigate([Path.AUTH]));
-  //     },
-  //   },
-  // ];
+  logout(): void {
+    this.#authService.logout().then(() => void this.#router.navigate([Path.AUTH]));
+  }
 }

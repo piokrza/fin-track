@@ -1,5 +1,4 @@
-export interface MenuItem {
+export interface Link {
   label: string;
-  routerLink?: string;
-  command?: () => void;
+  routerLink: string;
 }

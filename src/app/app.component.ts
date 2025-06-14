@@ -12,7 +12,7 @@ const imports = [RouterOutlet, MatProgressBarModule];
   selector: 'ft-root',
   template: `
     @if (isProcessing()) {
-      <mat-progress-bar class="absolute inset-x-0 top-0" mode="indeterminate" [style]="{ height: '.25rem' }" />
+      <mat-progress-bar class="absolute inset-x-0 top-0" mode="indeterminate" />
     }
     <router-outlet />
   `,

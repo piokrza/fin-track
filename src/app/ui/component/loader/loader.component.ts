@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-const imports = [ProgressSpinnerModule];
+const imports = [MatProgressSpinnerModule];
 
 @Component({
   selector: 'ft-loader',
   template: `
     <div class="flex items-center justify-center w-full">
       <div>
-        <p-progress-spinner />
+        <mat-spinner />
         <p class="text-center">Loading...</p>
       </div>
     </div>

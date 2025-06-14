@@ -1,5 +1,5 @@
 @use 'tailwindcss';
-@use '@angular/material' as mat;
+@use 'theme';
 
 html,
 body {
@@ -9,17 +9,4 @@ body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   background-color: var(--mat-sys-surface-container);
-}
-
-:root {
-  @include mat.theme(
-    (
-      color: (
-        primary: mat.$cyan-palette,
-        tertiary: mat.$orange-palette,
-      ),
-      typography: Roboto,
-      density: -1,
-    )
-  );
 }
