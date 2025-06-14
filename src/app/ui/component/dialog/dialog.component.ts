@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'ft-avatar',
+  selector: 'ft-dialog',
   template: ``,
 })
-export class AvatarComponent {}
+export class DialogComponent {}

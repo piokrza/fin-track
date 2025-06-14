@@ -2,6 +2,7 @@ const pathAliases: Record<string, string> = {
   '#app': 'src/app',
   '#core': 'src/app/core',
   '#auth': 'src/app/feature/auth',
+  '#ui': 'src/app/ui',
   '@primeng': 'node_modules/@primeng/themes/aura/$1',
 };
 
