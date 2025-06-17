@@ -1,5 +1,8 @@
 @use '@angular/material' as mat;
+@use 'theme' as theme;
+@use 'red-theme-colors' as red-theme;
 @use 'tailwindcss';
+@use 'green-theme';
 
 html,
 body {
@@ -24,10 +27,24 @@ body {
   );
 }
 
-.theme-one {
-  @include mat.theme(
+.theme-red {
+  @include theme.go(
     (
-      color: mat.$spring-green-palette,
+      color: (
+        primary: red-theme.$primary-palette,
+        tertiary: red-theme.$tertiary-palette,
+      ),
+    )
+  );
+}
+
+.theme-blue {
+  @include theme.go(
+    (
+      color: (
+        primary: mat.$cyan-palette,
+        tertiary: mat.$orange-palette,
+      ),
     )
   );
 }
