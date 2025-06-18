@@ -4,21 +4,29 @@
       <button matIconButton class="cursor-pointer lg:hidden" (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <span class="flex items-center">FinTrack</span>
+      <span class="flex items-center"
+        >FinTrack
+        <img src="assets/img/logo.svg" alt="" />
+      </span>
     </div>
 
     <div class="flex items-center gap-4">
-      <img class="rounded-full shrink-0 w-11 h-11" width="40" height="40" alt="avatar" [ngSrc]="user()?.photoURL ?? ''" />
-      <div>
-        <div class="text-sm">{{ user()?.displayName }}</div>
-        <div class="text-xs">{{ user()?.email }}</div>
+      <button matIconButton (click)="toggleTheme()">
+        <mat-icon>{{ isDarkMode() ? 'dark_mode' : 'light_mode' }}</mat-icon>
+      </button>
+      <div class="flex items-center gap-4">
+        <img class="rounded-full shrink-0 w-11 h-11" width="40" height="40" alt="avatar" [ngSrc]="user()?.photoURL ?? ''" />
+        <div>
+          <div class="text-sm">{{ user()?.displayName }}</div>
+          <div class="text-xs">{{ user()?.email }}</div>
+        </div>
       </div>
     </div>
   </div>
 </mat-toolbar>
 
 <mat-drawer-container class="" autosize>
-  <mat-drawer #drawer [mode]="isMobile() ? 'over' : 'side'" [opened]="true">
+  <mat-drawer #drawer [mode]="isOverMdBreakpoint() ? 'side' : 'over'" [opened]="true">
     <nav class="h-full flex flex-col justify-between p-4">
       <mat-nav-list>
         @for (link of links; track $index) {

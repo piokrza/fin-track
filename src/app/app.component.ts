@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, Type } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -6,7 +6,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AuthService } from '#auth/service';
 import { ProgressBarService } from '#ui/service';
 
-const imports = [RouterOutlet, MatProgressBarModule];
+const imports: Type<unknown>[] = [RouterOutlet, MatProgressBarModule];
 
 @Component({
   selector: 'ft-root',
