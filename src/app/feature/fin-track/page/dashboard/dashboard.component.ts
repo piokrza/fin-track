@@ -4,9 +4,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 
+import { AddTransactionDialogComponent } from '#fin-track/component/add-transaction-dialog';
 import { TransactionsComponent } from '#fin-track/component/transactions';
-import { ConfirmDialogComponent } from '#ui/component/confirm-dialog';
-import { ConfirmDialogData } from '#ui/component/confirm-dialog/model';
 
 const imports = [MatButtonModule, MatIconModule, TransactionsComponent];
 
@@ -25,18 +24,9 @@ const imports = [MatButtonModule, MatIconModule, TransactionsComponent];
   imports,
 })
 export class DashboardComponent {
-  constructor() {
-    this.addTransaction();
-  }
-
   readonly #dialog = inject(MatDialog);
 
   addTransaction(): void {
-    this.#dialog.open(ConfirmDialogComponent, {
-      data: {
-        title: 'title tego',
-        description: 'he hef lajlwi jwilaf jilawjlf ijaw lijlawfijaflw ijhe',
-      } satisfies ConfirmDialogData,
-    });
+    this.#dialog.open(AddTransactionDialogComponent, {});
   }
 }

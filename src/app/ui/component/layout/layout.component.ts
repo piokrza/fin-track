@@ -82,6 +82,6 @@ export class LayoutComponent implements OnInit {
   }
 
   setColorScheme(isDarkMode: boolean): void {
-    this.#document.documentElement.style.setProperty('color-scheme', isDarkMode ? 'dark' : 'light');
+    this.#document.body.style.setProperty('color-scheme', isDarkMode ? 'dark' : 'light');
   }
 }
