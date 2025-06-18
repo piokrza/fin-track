@@ -4,9 +4,9 @@
       <button matIconButton class="cursor-pointer lg:hidden" (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <span class="flex items-center"
+      <span class="flex items-center gap-2"
         >FinTrack
-        <img src="assets/img/logo.svg" alt="" />
+        <img src="assets/img/logo.svg" alt="" class="w-10" />
       </span>
     </div>
 
@@ -25,8 +25,8 @@
   </div>
 </mat-toolbar>
 
-<mat-drawer-container class="" autosize>
-  <mat-drawer #drawer [mode]="isOverMdBreakpoint() ? 'side' : 'over'" [opened]="true">
+<mat-drawer-container autosize>
+  <mat-drawer #drawer [mode]="isOverMdBreakpoint() ? 'side' : 'over'" [opened]="isOverMdBreakpoint()">
     <nav class="h-full flex flex-col justify-between p-4">
       <mat-nav-list>
         @for (link of links; track $index) {

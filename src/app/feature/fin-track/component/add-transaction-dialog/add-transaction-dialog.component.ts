@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'ft-add-transaction-dialog',
   template: `
     <ng-container>
-      <h1>Add transaction</h1>
+      <h1>Add transactif ilawjwflaij awflijawf il jawfliawf jliawfjfilawjlawfi jawflij flijw ailjaon</h1>
     </ng-container>
   `,
 })
