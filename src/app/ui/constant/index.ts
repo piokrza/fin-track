@@ -1,2 +1,2 @@
 export * from './breakpoints';
-export * from './links';
+export * from './route-animation';

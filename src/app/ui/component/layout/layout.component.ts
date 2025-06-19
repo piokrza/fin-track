@@ -1,4 +1,4 @@
-import { Component, DestroyRef, DOCUMENT, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { tap } from 'rxjs';
@@ -14,7 +14,7 @@ import { AuthService } from '#auth/service';
 import { Path } from '#core/enum';
 import { ConfirmDialogComponent, ConfirmDialogData } from '#ui/component/confirm-dialog';
 import { ProfileComponent } from '#ui/component/layout/component/profile';
-import { links } from '#ui/constant';
+import { LayoutService } from '#ui/service';
 import { BreakpointService } from '#ui/service';
 
 const imports = [
@@ -36,21 +36,17 @@ const imports = [
   styleUrl: './layout.component.scss',
   imports,
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent {
   readonly #router = inject(Router);
   readonly #dialog = inject(MatDialog);
-  readonly #document = inject(DOCUMENT);
   readonly #destroyRef = inject(DestroyRef);
   readonly #authService = inject(AuthService);
+  readonly #layoutService = inject(LayoutService);
 
   readonly isOverMdBreakpoint = inject(BreakpointService).observe('md');
-  readonly isDarkMode = signal(JSON.parse(localStorage.getItem('isDarkMode') ?? 'false'));
+  readonly isDarkMode = this.#layoutService.isDarkMode;
 
-  readonly links = links;
-
-  ngOnInit(): void {
-    this.setColorScheme(this.isDarkMode());
-  }
+  readonly links = this.#layoutService.links;
 
   logout(): void {
     this.#dialog
@@ -62,24 +58,13 @@ export class LayoutComponent implements OnInit {
       })
       .afterClosed()
       .pipe(
-        tap((decision) => {
-          if (decision) {
-            this.#authService.logout().then(() => void this.#router.navigate([Path.AUTH]));
-          }
-        }),
+        tap(async (decision) => decision && this.#authService.logout().then(() => void this.#router.navigate([Path.AUTH]))),
         takeUntilDestroyed(this.#destroyRef)
       )
       .subscribe();
   }
 
   toggleTheme(): void {
-    this.isDarkMode.set(!this.isDarkMode());
-
-    this.setColorScheme(this.isDarkMode());
-    localStorage.setItem('isDarkMode', this.isDarkMode());
-  }
-
-  setColorScheme(isDarkMode: boolean): void {
-    this.#document.body.style.setProperty('color-scheme', isDarkMode ? 'dark' : 'light');
+    this.#layoutService.toggleTheme();
   }
 }

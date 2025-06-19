@@ -14,7 +14,7 @@ const imports = [MatMenuModule, NgOptimizedImage, MatIconModule];
 @Component({
   selector: 'ft-profile',
   template: `
-    <div class="flex items-center gap-4 cursor-pointer p-2 rounded-xl hover:var(--mat-sys-surface-container)" [matMenuTriggerFor]="menu">
+    <div class="flex items-center gap-4 cursor-pointer p-1 rounded-xl hover:bg-(--mat-sys-surface-container)" [matMenuTriggerFor]="menu">
       <img class="rounded-full shrink-0 w-11 h-11" width="40" height="40" alt="avatar" [ngSrc]="user()?.photoURL ?? ''" />
       <div>
         <div class="text-sm">{{ user()?.displayName }}</div>

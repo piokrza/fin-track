@@ -9,7 +9,7 @@ const imports = [FormsModule, MatCardModule, RouterOutlet];
 @Component({
   selector: 'ft-auth-container',
   template: `
-    <section class="h-screen flex justify-center items-center p-4">
+    <section class="h-screen flex justify-center items-center p-4 bg-(--mat-sys-surface-container)">
       <div class="w-full max-w-lg">
         <mat-card class="p-4">
           <router-outlet />

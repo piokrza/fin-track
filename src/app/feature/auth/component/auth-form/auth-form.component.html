@@ -18,7 +18,7 @@
   </mat-form-field>
 </form>
 
-<button matButton="filled" type="submit" class="w-full" [disabled]="isProcessing()" (click)="submit()">
+<button matButton="tonal" type="submit" class="w-full" [disabled]="isProcessing()" (click)="submit()">
   {{ view() === 'login' ? 'Login' : 'Signin' }}
 </button>
 
@@ -32,5 +32,5 @@
 <p class="text-center my-2">or</p>
 
 <div class="flex justify-center">
-  <button matButton="filled" [disabled]="isProcessing()" (click)="signInWithGoogle()">Sign in with Google</button>
+  <button matButton="elevated" [disabled]="isProcessing()" (click)="signInWithGoogle()">Sign in with Google</button>
 </div>
