@@ -1,21 +1,17 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 
-import { AddTransactionDialogComponent } from '#fin-track/component/add-transaction-dialog';
+import { AddTransactionFormComponent } from '#fin-track/component/add-transaction-form';
 import { TransactionsComponent } from '#fin-track/component/transactions';
 
-const imports = [MatButtonModule, MatIconModule, TransactionsComponent];
+const imports = [MatButtonModule, MatIconModule, AddTransactionFormComponent, TransactionsComponent];
 
 @Component({
   selector: 'ft-dashboard',
   template: `
-    <button matFab extended (click)="addTransaction()">
-      <mat-icon>add</mat-icon>
-      Add transaction
-    </button>
+    <ft-add-transaction-form />
 
     <div class="mt-6">
       <ft-transactions />
@@ -23,10 +19,4 @@ const imports = [MatButtonModule, MatIconModule, TransactionsComponent];
   `,
   imports,
 })
-export class DashboardComponent {
-  readonly #dialog = inject(MatDialog);
-
-  addTransaction(): void {
-    this.#dialog.open(AddTransactionDialogComponent, {});
-  }
-}
+export class DashboardComponent {}

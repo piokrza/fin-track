@@ -65,6 +65,6 @@ export class LayoutComponent {
   }
 
   toggleTheme(): void {
-    this.#layoutService.toggleTheme();
+    this.#layoutService.toggleIsDarkMode();
   }
 }

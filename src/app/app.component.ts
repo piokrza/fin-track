@@ -4,7 +4,7 @@ import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { AuthService } from '#auth/service';
-import { routeTransition } from '#ui/constant';
+import { routeTransition } from '#ui/animation';
 import { LayoutService, ProgressBarService } from '#ui/service';
 
 const animations = [routeTransition];
@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
   readonly isProcessing = inject(ProgressBarService).select('isProcessing');
 
   ngOnInit(): void {
-    this.#layoutService.setColorScheme();
+    this.#layoutService.initTheme();
     this.#authService.setUser$().subscribe();
   }
 }
