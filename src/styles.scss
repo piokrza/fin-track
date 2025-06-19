@@ -32,8 +32,8 @@ body {
   @include theme.go(
     (
       color: (
-        primary: red-theme.$primary-palette,
-        tertiary: red-theme.$tertiary-palette,
+        primary: mat.$red-palette,
+        tertiary: mat.$red-palette,
       ),
     )
   );

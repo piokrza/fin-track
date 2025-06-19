@@ -3,7 +3,7 @@ import { Auth, GoogleAuthProvider, signInWithPopup, User, UserCredential } from 
 import { Router } from '@angular/router';
 import { finalize, from, Observable, tap } from 'rxjs';
 
-import { AuthHttpService } from '#auth/api';
+import { AuthApiService } from '#auth/api';
 import { AuthPayload } from '#auth/model';
 import { UserStore } from '#auth/store';
 import { Path } from '#core/enum';
@@ -14,14 +14,14 @@ export class AuthService {
   readonly #auth = inject(Auth);
   readonly #router = inject(Router);
   readonly #userStore = inject(UserStore);
-  readonly #authHttpService = inject(AuthHttpService);
+  readonly #authApiService = inject(AuthApiService);
   readonly #progressBarService = inject(ProgressBarService);
 
   login$(payload: AuthPayload): Observable<UserCredential> {
     this.#userStore.update('isProcessing', true);
     this.#progressBarService.update('isProcessing', this.#userStore.select('isProcessing')());
 
-    return this.#authHttpService.login$(payload).pipe(
+    return this.#authApiService.login$(payload).pipe(
       tap(() => {
         this.#router.navigate([Path.FIN_TRACK]);
       }),
@@ -36,7 +36,7 @@ export class AuthService {
     this.#userStore.update('isProcessing', true);
     this.#progressBarService.update('isProcessing', this.#userStore.select('isProcessing')());
 
-    return this.#authHttpService.signin$(payload).pipe(
+    return this.#authApiService.signin$(payload).pipe(
       tap(() => this.#router.navigate([Path.FIN_TRACK])),
       finalize(() => {
         this.#userStore.update('isProcessing', false);
@@ -55,13 +55,13 @@ export class AuthService {
   }
 
   logout(): Promise<void> {
-    return this.#authHttpService.logout();
+    return this.#authApiService.logout();
   }
 
   setUser$(): Observable<User | null> {
     this.#progressBarService.update('isProcessing', true);
 
-    return this.#authHttpService.user$.pipe(
+    return this.#authApiService.user$.pipe(
       tap((user: User | null) => {
         this.#userStore.update('user', user);
         this.#progressBarService.update('isProcessing', false);

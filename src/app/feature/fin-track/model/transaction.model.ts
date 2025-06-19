@@ -2,8 +2,9 @@ import { Timestamp } from '@angular/fire/firestore';
 
 export interface Transaction {
   id: string;
-  uid: string;
-  amount: string;
+  userId: string;
+  amount: number;
   category: string;
   createDate: Timestamp;
+  type: 'income' | 'expense';
 }

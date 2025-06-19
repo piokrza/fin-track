@@ -14,7 +14,7 @@ import { from, Observable, tap } from 'rxjs';
 import { AuthPayload } from '#auth/model';
 
 @Injectable({ providedIn: 'root' })
-export class AuthHttpService {
+export class AuthApiService {
   readonly #firebaseAuth = inject(Auth);
 
   get user$(): Observable<User | null> {
