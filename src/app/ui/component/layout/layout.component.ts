@@ -1,17 +1,20 @@
-import { NgOptimizedImage } from '@angular/common';
-import { Component, DOCUMENT, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, DOCUMENT, inject, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { tap } from 'rxjs';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AuthService } from '#auth/service';
-import { UserStore } from '#auth/store';
 import { Path } from '#core/enum';
-import { Link } from '#ui/model';
+import { ConfirmDialogComponent, ConfirmDialogData } from '#ui/component/confirm-dialog';
+import { ProfileComponent } from '#ui/component/layout/component/profile';
+import { links } from '#ui/constant';
 import { BreakpointService } from '#ui/service';
 
 const imports = [
@@ -21,8 +24,8 @@ const imports = [
   MatIconModule,
   MatListModule,
   MatButtonModule,
+  ProfileComponent,
   RouterLinkActive,
-  NgOptimizedImage,
   MatToolbarModule,
   MatSidenavModule,
 ];
@@ -35,43 +38,38 @@ const imports = [
 })
 export class LayoutComponent implements OnInit {
   readonly #router = inject(Router);
+  readonly #dialog = inject(MatDialog);
   readonly #document = inject(DOCUMENT);
-  readonly userStore = inject(UserStore);
+  readonly #destroyRef = inject(DestroyRef);
   readonly #authService = inject(AuthService);
 
   readonly isOverMdBreakpoint = inject(BreakpointService).observe('md');
   readonly isDarkMode = signal(JSON.parse(localStorage.getItem('isDarkMode') ?? 'false'));
 
-  readonly user = this.userStore.select('user');
-  readonly links: Link[] = [
-    {
-      label: 'Dashboard',
-      routerLink: Path.DASHBOARD,
-    },
-    {
-      label: 'Categories',
-      routerLink: Path.CATEGORIES,
-    },
-    {
-      label: 'History',
-      routerLink: Path.HISTORY,
-    },
-    {
-      label: 'Budget',
-      routerLink: Path.BUDGET,
-    },
-    {
-      label: 'Settings',
-      routerLink: Path.SETTINGS,
-    },
-  ];
+  readonly links = links;
 
   ngOnInit(): void {
     this.setColorScheme(this.isDarkMode());
   }
 
   logout(): void {
-    this.#authService.logout().then(() => void this.#router.navigate([Path.AUTH]));
+    this.#dialog
+      .open(ConfirmDialogComponent, {
+        data: {
+          title: '',
+          description: 'dwad',
+        } satisfies ConfirmDialogData,
+      })
+      .afterClosed()
+      .pipe(
+        tap((decision) => {
+          if (decision) {
+            this.#authService.logout().then(() => void this.#router.navigate([Path.AUTH]));
+          }
+        }),
+        takeUntilDestroyed(this.#destroyRef)
+      )
+      .subscribe();
   }
 
   toggleTheme(): void {

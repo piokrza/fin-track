@@ -33,11 +33,11 @@
     "zone.js": "^0.15.0"
   },
   "devDependencies": {
-    "@angular/build": "^20.0.1",
-    "@angular/cli": "^20.0.1",
+    "@angular/build": "^20.0.3",
+    "@angular/cli": "^20.0.3",
     "@angular/compiler-cli": "^20.0.4",
     "@types/jest": "^29.5.14",
-    "angular-eslint": "^20.1.0",
+    "angular-eslint": "^20.1.1",
     "eslint": "^9.28.0",
     "eslint-plugin-import": "^2.31.0",
     "husky": "^9.1.7",
