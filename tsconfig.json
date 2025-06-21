@@ -23,7 +23,8 @@
       "#core/*": ["src/app/core/*"],
       "#test/*": ["src/app/test/*"],
       "#ui/*": ["src/app/ui/*"],
-      "#fin-track/*": ["src/app/feature/fin-track/*"]
+      "#fin-track/*": ["src/app/feature/fin-track/*"],
+      "#ft-page/*": ["src/app/feature/fin-track/page/*"]
     }
   },
   "angularCompilerOptions": {

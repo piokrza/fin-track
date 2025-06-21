@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { take, tap } from 'rxjs';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -22,7 +22,7 @@ const imports = [MatButtonModule, MatInputModule, ReactiveFormsModule, MatIconMo
       <mat-icon>add</mat-icon>
     </button>
 
-    <form [@expandCollapse]="isFormVisible() ? 'expanded' : 'collapsed'" class="grid" [formGroup]="form">
+    <form class="grid" [@expandCollapse]="isFormVisible() ? 'expanded' : 'collapsed'" [formGroup]="form">
       <mat-form-field>
         <mat-label>Amount</mat-label>
         <input matInput type="number" [formControl]="form.controls.amount" />
@@ -37,7 +37,7 @@ const imports = [MatButtonModule, MatInputModule, ReactiveFormsModule, MatIconMo
         </mat-select>
       </mat-form-field>
 
-      <button matButton (click)="submit()">Add transaction</button>
+      <button matButton [disabled]="form.invalid" (click)="submit()">Add transaction</button>
     </form>
   `,
   animations,
@@ -51,14 +51,19 @@ export class AddTransactionFormComponent {
   readonly categories = ['Zakupy', 'Samochód', 'Rozrywka', 'Jedzenie'];
 
   readonly form = new FormGroup({
-    amount: new FormControl<number>(0, { nonNullable: true }),
-    category: new FormControl<string>('', { nonNullable: true }),
+    amount: new FormControl<number | null>(null, { validators: [Validators.required] }),
+    category: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
   });
 
   submit(): void {
+    if (this.form.invalid) {
+      this.form.markAsDirty();
+      return;
+    }
+
     this.#transactionsService
       .addTransaction$({
-        amount: this.form.controls.amount.value,
+        amount: this.form.controls.amount.value!,
         category: this.form.controls.category.value,
         id: '4124',
         userId: this.user()?.uid ?? '',

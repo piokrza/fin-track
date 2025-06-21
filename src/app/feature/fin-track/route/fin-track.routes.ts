@@ -15,27 +15,27 @@ export const FinTrackRoutes: Routes = [
       {
         path: Path.DASHBOARD,
         title: 'Dashbord',
-        loadComponent: async () => (await import('#fin-track/page/dashboard')).DashboardComponent,
+        loadComponent: async () => (await import('#ft-page/dashboard')).DashboardComponent,
       },
       {
         path: Path.HISTORY,
         title: 'History',
-        loadComponent: async () => (await import('#fin-track/page/history')).HistoryComponent,
+        loadComponent: async () => (await import('#ft-page/history')).HistoryComponent,
       },
       {
         path: Path.BUDGET,
         title: 'Budget',
-        loadComponent: async () => (await import('#fin-track/page/budget')).BudgetComponent,
+        loadComponent: async () => (await import('#ft-page/budget')).BudgetComponent,
       },
       {
         path: Path.CATEGORIES,
         title: 'Categories',
-        loadComponent: async () => (await import('#fin-track/page/categories')).CategoriesComponent,
+        loadComponent: async () => (await import('#ft-page/categories')).CategoriesComponent,
       },
       {
         path: Path.SETTINGS,
         title: 'Settings',
-        loadComponent: async () => (await import('#fin-track/page/settings')).SettingsComponent,
+        loadComponent: async () => (await import('#ft-page/settings')).SettingsComponent,
       },
     ],
   },
